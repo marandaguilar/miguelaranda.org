@@ -3,64 +3,410 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miguel Aranda</title>
-<meta name="description" content="Desarrollador full stack y móvil, diseñador UI/UX. Cofundador y CEO de NoPain Technologies, desarrollador de NoPain.">
+<title>Miguel Aranda — Desarrollador y diseñador</title>
+<meta name="description" content="Hago apps y sistemas a la medida para negocios que hoy llevan sus citas, pacientes o pedidos en libretas, Excel y WhatsApp. Aguascalientes, México.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>M</text></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Miguel Aranda — Desarrollador y diseñador">
+<meta property="og:description" content="Hago apps y sistemas a la medida para negocios que hoy llevan sus citas, pacientes o pedidos en libretas, Excel y WhatsApp.">
+<meta property="og:url" content="https://miguelaranda.org/">
+<meta property="og:locale" content="es_MX">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+
 <style>
   :root {
-    --bg:#fbfaf8; --ink:#1a1a18; --muted:#6b6862; --rule:#e5e1da; --accent:#1a1a18;
-    --serif: 'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;
-    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --paper:#f0efea;
+    --ink:#16181c;
+    --ink-soft:#5b5f66;
+    --rule:#d6d3c9;
+    --blue:#1b3ba3;
+    --manila:#e3cfa4;
+    --manila-ink:#2a2213;
+    --manila-rule:#c9b283;
+
+    --display:'Bricolage Grotesque','Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --text:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+
+    --gutter:clamp(1.25rem,5vw,4rem);
+    --measure:34rem;
   }
+
   @media (prefers-color-scheme: dark) {
-    :root { --bg:#14140f; --ink:#eae7e0; --muted:#98948c; --rule:#2c2b26; --accent:#eae7e0; }
+    :root {
+      --paper:#14161a;
+      --ink:#e9e7e1;
+      --ink-soft:#9a9ea6;
+      --rule:#2e3238;
+      --blue:#9db4ff;
+      --manila:#33291a;
+      --manila-ink:#eadfc6;
+      --manila-rule:#4d3f28;
+    }
   }
+
   * { box-sizing:border-box; }
+  html, body { overflow-x:hidden; }
+  html.anim { scroll-behavior:smooth; }
+
   body {
-    margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
-    font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
-    display:flex; min-height:100vh; align-items:center;
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--text);
+    font-size:1.0625rem;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
   }
-  main { width:100%; max-width:34rem; margin:0 auto; padding:4rem 1.5rem; }
-  h1 {
-    font-family:var(--serif); font-weight:400; font-size:clamp(2.6rem,9vw,3.6rem);
-    line-height:1.05; letter-spacing:-.02em; margin:0 0 .6rem;
+
+  .wrap { max-width:72rem; margin:0 auto; padding:0 var(--gutter); }
+
+  h1, h2, h3 {
+    font-family:var(--display);
+    font-weight:800;
+    letter-spacing:-.035em;
+    line-height:1;
+    margin:0;
   }
-  .role { color:var(--muted); font-size:1.02rem; line-height:1.5; margin:0 0 1.9rem; max-width:26rem; }
-  p { margin:0 0 1.15rem; }
-  .bio { margin-bottom:2.75rem; }
-  nav { border-top:1px solid var(--rule); padding-top:1.5rem; }
-  nav a {
-    display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
-    padding:.6rem 0; color:var(--ink); text-decoration:none;
-    border-bottom:1px solid var(--rule); transition:padding-left .18s ease, color .18s ease;
+
+  a { color:inherit; }
+
+  /* ————— Portada: una pantalla, nada más ————— */
+  .portada {
+    min-height:100vh; min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding-top:4rem; padding-bottom:6rem;
+    position:relative;
   }
-  nav a:last-child { border-bottom:0; }
-  nav a:hover, nav a:focus-visible { padding-left:.5rem; }
-  nav a .where { color:var(--muted); font-size:.9rem; }
-  nav a:hover .where { color:var(--ink); }
-  footer { margin-top:3rem; color:var(--muted); font-size:.85rem; }
-  ::selection { background:var(--ink); color:var(--bg); }
+  .portada h1 {
+    font-size:clamp(2.9rem,9vw,5.5rem);
+    line-height:.95;
+    margin-bottom:1.1rem;
+  }
+  .rol {
+    font-size:clamp(1.05rem,2vw,1.3rem);
+    color:var(--ink-soft);
+    max-width:30rem;
+    margin:0 0 2.4rem;
+  }
+  .rol b { color:var(--ink); font-weight:600; }
+
+  .mail {
+    font-family:var(--display); font-weight:600; letter-spacing:-.02em;
+    font-size:clamp(1.15rem,2.6vw,1.6rem);
+    color:var(--blue); text-decoration:none;
+    border-bottom:3px solid var(--blue);
+    padding-bottom:.12em;
+    transition:background-color .15s ease, color .15s ease;
+  }
+  .mail:hover, .mail:focus-visible { background:var(--blue); color:var(--paper); }
+
+  .vermas {
+    position:absolute; left:var(--gutter); bottom:2.5rem;
+    display:inline-flex; flex-direction:column; gap:.7rem;
+    font-size:.95rem; color:var(--ink-soft);
+    text-decoration:none;
+  }
+  .vermas .linea {
+    width:1px; height:2.6rem; background:var(--rule);
+    position:relative; overflow:hidden;
+  }
+  .vermas .linea::after {
+    content:''; position:absolute; inset:0;
+    background:var(--ink);
+    transform:translateY(-100%);
+  }
+  html.anim .vermas .linea::after { animation:cae 2.6s cubic-bezier(.6,0,.3,1) infinite; }
+  @keyframes cae {
+    0%   { transform:translateY(-100%); }
+    55%  { transform:translateY(0); }
+    100% { transform:translateY(100%); }
+  }
+  .vermas:hover, .vermas:focus-visible { color:var(--ink); }
+  /* una vez que se bajó, el indicador ya cumplió: deja de moverse */
+  html.bajo .vermas { opacity:0; pointer-events:none; transition:opacity .4s ease; }
+  html.bajo .vermas .linea::after { animation:none; }
+
+  /* ————— Secciones ————— */
+  section.bloque { padding:clamp(4.5rem,10vw,8rem) 0 0; scroll-margin-top:1.5rem; }
+  h2 {
+    font-size:clamp(1.9rem,4.4vw,2.9rem);
+    max-width:16ch;
+    margin-bottom:2.5rem;
+  }
+
+  /* Servicios y pasos comparten el mismo esqueleto de renglones */
+  .row {
+    display:grid; gap:.4rem 3rem;
+    padding:1.8rem 0;
+    position:relative;
+  }
+  .row::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:1px;
+    background:var(--rule);
+    transform:scaleX(1); transform-origin:left;
+  }
+  .rows::after {
+    content:''; display:block; height:1px; background:var(--rule);
+    transform:scaleX(1); transform-origin:left;
+  }
+  .row h3 { font-weight:600; font-size:1.3rem; letter-spacing:-.025em; }
+  .row p { margin:0; color:var(--ink-soft); max-width:var(--measure); }
+  @media (min-width:48rem) {
+    .row { grid-template-columns:16rem 1fr; align-items:start; }
+  }
+
+  /* Casos */
+  .caso { padding:2.5rem 0 3rem; position:relative; }
+  .caso::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:1px;
+    background:var(--rule);
+    transform:scaleX(1); transform-origin:left;
+  }
+  .caso-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem .9rem; margin-bottom:1rem; }
+  .caso-head h3 { font-size:clamp(1.6rem,3.4vw,2.1rem); font-weight:800; }
+  .estado {
+    font-size:.78rem; color:var(--ink-soft);
+    border:1px solid var(--rule); border-radius:999px; padding:.2rem .7rem;
+    white-space:nowrap;
+  }
+  .caso .que { font-size:1.15rem; color:var(--ink); max-width:var(--measure); margin:0 0 1rem; }
+  .caso p { max-width:var(--measure); color:var(--ink-soft); margin:0 0 1rem; }
+  .caso p:last-child { margin-bottom:0; }
+  .caso a.link { color:var(--blue); text-decoration-thickness:1px; text-underline-offset:.2em; }
+  .piezas {
+    list-style:none; margin:1.4rem 0 0; padding:0;
+    display:flex; flex-wrap:wrap; gap:.5rem;
+    max-width:var(--measure);
+  }
+  .piezas li {
+    font-size:.85rem; color:var(--ink-soft);
+    border:1px solid var(--rule); border-radius:.4rem; padding:.3rem .7rem;
+  }
+
+  /* ————— Proceso, sobre el folder ————— */
+  .proceso {
+    background:var(--manila); color:var(--manila-ink);
+    margin-top:clamp(4.5rem,10vw,8rem);
+    padding-bottom:clamp(3.5rem,8vw,6rem);
+  }
+  .proceso h2 { margin-bottom:2rem; }
+  .proceso .row::before, .proceso .rows::after { background:var(--manila-rule); }
+  .proceso .row { grid-template-columns:2.4rem 1fr; gap:0 1.2rem; }
+  .proceso .row p { color:inherit; }
+  .proceso .row h3 { margin-bottom:.3rem; }
+  .num { font-family:var(--display); font-weight:800; font-size:1.5rem; line-height:1.35; opacity:.45; }
+  @media (min-width:48rem) {
+    .proceso .wrap { display:grid; grid-template-columns:16rem 1fr; gap:0 3rem; align-items:start; }
+    .proceso h2 { font-size:2.2rem; margin:0; padding-top:1.5rem; }
+  }
+
+  /* ————— Cierre ————— */
+  .cierre { padding-bottom:clamp(4rem,9vw,7rem); }
+  .cierre p { max-width:var(--measure); margin:0 0 2rem; }
+  .mail-xl {
+    display:inline-block;
+    font-family:var(--display); font-weight:800; letter-spacing:-.035em;
+    font-size:clamp(1.5rem,5.4vw,3.4rem);
+    line-height:1.1;
+    color:var(--blue); text-decoration:none;
+    border-bottom:.08em solid var(--blue);
+    transition:background-color .15s ease, color .15s ease;
+  }
+  .mail-xl:hover, .mail-xl:focus-visible { background:var(--blue); color:var(--paper); }
+
+  /* ————— Pie ————— */
+  footer {
+    border-top:1px solid var(--rule);
+    padding:2rem 0 3rem;
+    font-size:.9rem; color:var(--ink-soft);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem 2rem;
+  }
+  footer nav { display:flex; flex-wrap:wrap; gap:1.4rem; }
+  footer p { margin:0; }
+  footer a {
+    color:var(--ink-soft); text-decoration:underline;
+    text-decoration-color:var(--rule); text-decoration-thickness:1px; text-underline-offset:.25em;
+  }
+  footer a:hover, footer a:focus-visible { color:var(--ink); text-decoration-color:currentColor; }
+  .stack { max-width:26rem; }
+
+  :focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+  ::selection { background:var(--blue); color:#fff; }
+
+  /* ————— Aparición al bajar —————
+     Sin JS o con movimiento reducido, todo queda visible de entrada. */
+  html.anim .rev h2,
+  html.anim .rev .apar { opacity:0; }
+  html.anim .rev h2 { clip-path:inset(0 0 105% 0); }
+  html.anim .rev .apar { transform:translateY(14px); }
+  html.anim .rev .row::before,
+  html.anim .rev .rows::after,
+  html.anim .rev.caso::before { transform:scaleX(0); }
+
+  html.anim .rev.visible h2 {
+    opacity:1; clip-path:inset(0 0 -25% 0);
+    transition:clip-path .85s cubic-bezier(.2,.75,.25,1), opacity .3s ease;
+  }
+  html.anim .rev.visible .apar {
+    opacity:1; transform:none;
+    transition:opacity .55s ease var(--d,0s), transform .55s cubic-bezier(.2,.75,.25,1) var(--d,0s);
+  }
+  html.anim .rev.visible .row::before,
+  html.anim .rev.visible .rows::after,
+  html.anim .rev.visible.caso::before {
+    transform:scaleX(1);
+    transition:transform .8s cubic-bezier(.25,.8,.3,1) var(--d,0s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition:none !important; animation:none !important; }
+    html { scroll-behavior:auto; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>Miguel Aranda</h1>
-  <p class="role">Desarrollador full stack y m&oacute;vil &middot; Dise&ntilde;ador UI/UX &middot; Cofundador y CEO de NoPain Technologies</p>
 
-  <div class="bio">
-    <p>Construyo productos de salud digital de punta a punta: NoPain — apps m&oacute;viles para pacientes y fisioterapeutas — adem&aacute;s de tiendas en l&iacute;nea y los backends que las sostienen.</p>
-    <p>Trabajo con React Native, Flutter, Next.js, Astro y Laravel, y dise&ntilde;o el sistema visual de cada producto antes de escribir el primer componente.</p>
+<header class="portada wrap">
+  <h1>Miguel Aranda</h1>
+  <p class="rol">Desarrollador y diseñador. Hago <b>apps y sistemas a la medida</b> para negocios que hoy trabajan con libretas, Excel y WhatsApp.</p>
+  <p><a class="mail" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a></p>
+
+  <a class="vermas" href="#trabajo">
+    Ver más
+    <span class="linea" aria-hidden="true"></span>
+  </a>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="bloque rev" id="trabajo">
+      <h2>En qué te puedo ayudar</h2>
+      <div class="rows">
+        <div class="row apar" style="--d:.05s">
+          <h3>Apps para celular</h3>
+          <p>Para iPhone y Android, publicadas en las tiendas. Para tu equipo, para tus clientes, o para los dos.</p>
+        </div>
+        <div class="row apar" style="--d:.12s">
+          <h3>Páginas y tiendas en línea</h3>
+          <p>Un catálogo que se ve bien desde el celular y pedidos que te llegan completos, sin perder la venta a media conversación.</p>
+        </div>
+        <div class="row apar" style="--d:.19s">
+          <h3>Sistemas para tu negocio</h3>
+          <p>Citas, expedientes, inventario, clientes. Todo en un solo lugar, en vez de cinco archivos y nadie sabe cuál es el bueno.</p>
+        </div>
+        <div class="row apar" style="--d:.26s">
+          <h3>Diseño de las pantallas</h3>
+          <p>Yo diseño lo que después programo. No mando esa parte a otro lado ni te entrego algo que se ve improvisado.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <div class="rev"><h2>Lo que he construido</h2></div>
+
+      <article class="caso rev">
+        <div class="caso-head apar">
+          <h3>NoPain</h3>
+          <span class="estado">En desarrollo</span>
+        </div>
+        <p class="que apar" style="--d:.06s">Una plataforma completa para clínicas de fisioterapia que hoy llevan sus expedientes en papel.</p>
+        <p class="apar" style="--d:.12s">Tres piezas conectadas al mismo expediente: el fisioterapeuta atiende y receta ejercicios, el paciente hace su rutina en casa y reporta cómo le fue, y la clínica ve todo desde el panel de administración.</p>
+        <p class="apar" style="--d:.18s">Soy cofundador y la construí de principio a fin. <a class="link" href="https://www.nopain.mx">nopain.mx</a></p>
+        <ul class="piezas apar" style="--d:.24s">
+          <li>App del fisioterapeuta</li>
+          <li>App del paciente</li>
+          <li>Panel de administración</li>
+        </ul>
+      </article>
+
+      <article class="caso rev">
+        <div class="caso-head apar">
+          <h3>Gamba</h3>
+          <span class="estado">Tienda en línea</span>
+        </div>
+        <p class="que apar" style="--d:.06s">Tienda de artículos de limpieza, con catálogo en línea y pedidos por WhatsApp.</p>
+        <p class="apar" style="--d:.12s">Rediseñé la tienda completa alrededor de una sola pregunta: qué hace falta para que alguien que entra desde el celular termine mandando su pedido.</p>
+      </article>
+    </section>
   </div>
 
-  <nav>
-    <a href="https://www.nopain.mx" rel="me">NoPain <span class="where">nopain.mx</span></a>
-    <a href="mailto:miguel@miguelaranda.org">Correo <span class="where">miguel@miguelaranda.org</span></a>
-    <a href="https://github.com/marandaguilar" rel="me">GitHub <span class="where">marandaguilar</span></a>
-    <a href="https://www.linkedin.com/in/miguelarandaguilar/" rel="me">LinkedIn <span class="where">miguelarandaguilar</span></a>
-  </nav>
+  <section class="bloque proceso rev">
+    <div class="wrap">
+      <h2>Cómo trabajamos</h2>
+      <div class="rows">
+        <div class="row apar" style="--d:.05s">
+          <span class="num" aria-hidden="true">1</span>
+          <div>
+            <h3>Me cuentas cómo trabajas hoy</h3>
+            <p>Sin tecnicismos. Qué haces en el día, dónde se te va el tiempo y qué se te pierde. De ahí sale lo que hay que construir.</p>
+          </div>
+        </div>
+        <div class="row apar" style="--d:.12s">
+          <span class="num" aria-hidden="true">2</span>
+          <div>
+            <h3>Te enseño las pantallas antes de programar</h3>
+            <p>Ves cómo se va a ver y me dices qué cambiar. Nada se programa hasta que estés de acuerdo, que es cuando los cambios todavía salen baratos.</p>
+          </div>
+        </div>
+        <div class="row apar" style="--d:.19s">
+          <span class="num" aria-hidden="true">3</span>
+          <div>
+            <h3>Recibes avances cada semana</h3>
+            <p>Lo pruebas tú mismo desde tu celular mientras se construye. En todo momento sabes en qué vamos y qué sigue.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <footer>Aguascalientes, México</footer>
+  <div class="wrap">
+    <section class="bloque cierre rev">
+      <h2>Cuéntame qué necesitas</h2>
+      <p class="apar" style="--d:.06s">No hace falta que sepas de tecnología ni que traigas el proyecto definido. Con que me expliques qué te está costando trabajo, es suficiente para empezar.</p>
+      <p class="apar" style="--d:.12s"><a class="mail-xl" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a></p>
+    </section>
+  </div>
 </main>
+
+<div class="wrap">
+  <footer>
+    <p class="stack">Miguel Aranda — Aguascalientes, México. Cofundador de NoPain Technologies. Trabajo con React&nbsp;Native, Flutter, Next.js y Laravel.</p>
+    <nav>
+      <a href="https://www.nopain.mx" rel="me">NoPain</a>
+      <a href="https://github.com/marandaguilar" rel="me">GitHub</a>
+      <a href="https://www.linkedin.com/in/miguelarandaguilar/" rel="me">LinkedIn</a>
+    </nav>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (quieto || !('IntersectionObserver' in window)) return;
+
+    document.documentElement.classList.add('anim');
+
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    document.querySelectorAll('.rev').forEach(function (el) { io.observe(el); });
+
+    var portada = document.querySelector('.portada');
+    new IntersectionObserver(function (entradas) {
+      document.documentElement.classList.toggle('bajo', !entradas[0].isIntersecting);
+    }, { threshold: 0 }).observe(portada);
+  })();
+</script>
+
 </body>
 </html>
