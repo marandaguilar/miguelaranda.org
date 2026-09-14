@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miguel Aranda — Desarrollador y diseñador</title>
-<meta name="description" content="Hago apps y sistemas a la medida para negocios que hoy llevan sus citas, pacientes o pedidos en libretas, Excel y WhatsApp. Aguascalientes, México.">
+<title>Miguel Aranda — Sistemas web, inventarios y catálogos digitales</title>
+<meta name="description" content="Sistemas web, inventarios, punto de venta, catálogos digitales y códigos QR para negocios que hoy trabajan con libretas, Excel y WhatsApp. Aguascalientes, México.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>M</text></svg>">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Miguel Aranda — Desarrollador y diseñador">
-<meta property="og:description" content="Hago apps y sistemas a la medida para negocios que hoy llevan sus citas, pacientes o pedidos en libretas, Excel y WhatsApp.">
+<meta property="og:title" content="Miguel Aranda — Sistemas web, inventarios y catálogos digitales">
+<meta property="og:description" content="Sistemas web, inventarios, punto de venta, catálogos digitales y códigos QR para negocios que hoy trabajan con libretas, Excel y WhatsApp.">
 <meta property="og:url" content="https://miguelaranda.org/">
 <meta property="og:locale" content="es_MX">
 
@@ -160,6 +160,18 @@
     .row { grid-template-columns:16rem 1fr; align-items:start; }
   }
 
+  /* Servicios: el grupo a la izquierda, lo que incluye a la derecha */
+  .intro { max-width:var(--measure); margin:-1rem 0 2.5rem; font-size:1.15rem; }
+  .servicios { display:grid; gap:1.5rem; }
+  .servicios h4 {
+    font-family:var(--text); font-weight:600;
+    font-size:1.1rem; letter-spacing:-.01em; line-height:1.3;
+    margin:0 0 .25rem;
+  }
+  @media (max-width:47.99rem) {
+    .row .servicios { margin-top:1rem; }
+  }
+
   /* Casos */
   .caso { padding:2.5rem 0 3rem; position:relative; }
   .caso::before {
@@ -206,18 +218,37 @@
   }
 
   /* ————— Cierre ————— */
-  .cierre { padding-bottom:clamp(4rem,9vw,7rem); }
+  section.bloque.cierre { padding-bottom:clamp(4rem,9vw,7rem); }
   .cierre p { max-width:var(--measure); margin:0 0 2rem; }
-  .mail-xl {
+  /* El número va como en un rótulo: grande, para que se lea de lejos */
+  .tel-xl {
     display:inline-block;
-    font-family:var(--display); font-weight:800; letter-spacing:-.035em;
-    font-size:clamp(1.5rem,5.4vw,3.4rem);
-    line-height:1.1;
+    font-family:var(--display); font-weight:800; letter-spacing:-.04em;
+    font-size:clamp(2.6rem,13vw,6.5rem);
+    line-height:1;
+    white-space:nowrap;
     color:var(--blue); text-decoration:none;
-    border-bottom:.08em solid var(--blue);
+    border-bottom:.06em solid var(--blue);
+    padding-bottom:.04em;
     transition:background-color .15s ease, color .15s ease;
   }
-  .mail-xl:hover, .mail-xl:focus-visible { background:var(--blue); color:var(--paper); }
+  .tel-xl:hover, .tel-xl:focus-visible { background:var(--blue); color:var(--paper); }
+  .cierre p.canales {
+    display:flex; flex-wrap:wrap; align-items:center; gap:1rem 1.8rem;
+    margin:2.2rem 0 0;
+  }
+  .wa {
+    display:inline-block;
+    font-family:var(--display); font-weight:600; letter-spacing:-.015em;
+    font-size:1.15rem;
+    background:var(--blue); color:var(--paper);
+    text-decoration:none;
+    padding:.75rem 1.3rem; border-radius:.4rem;
+    border:2px solid var(--blue);
+    transition:background-color .15s ease, color .15s ease;
+  }
+  .wa:hover, .wa:focus-visible { background:transparent; color:var(--blue); }
+  .cierre .mail { font-size:1.15rem; border-bottom-width:2px; }
 
   /* ————— Pie ————— */
   footer {
@@ -273,7 +304,7 @@
 
 <header class="portada wrap">
   <h1>Miguel Aranda</h1>
-  <p class="rol">Desarrollador y diseñador. Hago <b>apps y sistemas a la medida</b> para negocios que hoy trabajan con libretas, Excel y WhatsApp.</p>
+  <p class="rol">Somos dos socios y hacemos <b>sistemas web, inventarios y catálogos digitales</b> para negocios que hoy trabajan con libretas, Excel y WhatsApp.</p>
   <p><a class="mail" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a></p>
 
   <a class="vermas" href="#trabajo">
@@ -285,29 +316,61 @@
 <main>
   <div class="wrap">
     <section class="bloque rev" id="trabajo">
-      <h2>En qué te puedo ayudar</h2>
+      <h2>De la libreta a un sistema</h2>
+      <p class="intro apar">Lo que hoy vive en libretas, hojas de Excel y chats pasa a un sistema que tu equipo usa desde la computadora o el celular.</p>
       <div class="rows">
         <div class="row apar" style="--d:.05s">
-          <h3>Apps para celular</h3>
-          <p>Para iPhone y Android, publicadas en las tiendas. Para tu equipo, para tus clientes, o para los dos.</p>
+          <h3>Para vender</h3>
+          <div class="servicios">
+            <div>
+              <h4>Catálogos digitales</h4>
+              <p>Tus productos con foto y precio en un solo enlace que mandas por WhatsApp. Para tiendas y distribuidoras que hoy mandan fotos sueltas y listas de precios en PDF.</p>
+            </div>
+            <div>
+              <h4>Códigos QR</h4>
+              <p>El menú en la mesa del restaurante o la cafetería, la ficha de un producto en el mostrador. Tu cliente lo abre con la cámara del celular, sin descargar nada.</p>
+            </div>
+            <div>
+              <h4>Páginas web y tiendas en línea</h4>
+              <p>Que te encuentren en internet y que los pedidos te lleguen completos, sin perder la venta a media conversación.</p>
+            </div>
+          </div>
         </div>
         <div class="row apar" style="--d:.12s">
-          <h3>Páginas y tiendas en línea</h3>
-          <p>Un catálogo que se ve bien desde el celular y pedidos que te llegan completos, sin perder la venta a media conversación.</p>
+          <h3>Para llevar el control</h3>
+          <div class="servicios">
+            <div>
+              <h4>Inventario</h4>
+              <p>Qué entra, qué sale y qué se está acabando. La bodega de una distribuidora o los insumos de una cocina, sin contar a mano cada semana.</p>
+            </div>
+            <div>
+              <h4>Punto de venta y cobros</h4>
+              <p>Cobrar rápido, cerrar la caja al final del día y saber cuánto vendiste sin sumar tickets.</p>
+            </div>
+            <div>
+              <h4>Citas y reservas</h4>
+              <p>Tus clientes apartan su hora en línea y tú ves la agenda del día desde el celular. Para talleres y negocios de servicios.</p>
+            </div>
+          </div>
         </div>
         <div class="row apar" style="--d:.19s">
-          <h3>Sistemas para tu negocio</h3>
-          <p>Citas, expedientes, inventario, clientes. Todo en un solo lugar, en vez de cinco archivos y nadie sabe cuál es el bueno.</p>
-        </div>
-        <div class="row apar" style="--d:.26s">
-          <h3>Diseño de las pantallas</h3>
-          <p>Yo diseño lo que después programo. No mando esa parte a otro lado ni te entrego algo que se ve improvisado.</p>
+          <h3>A la medida</h3>
+          <div class="servicios">
+            <div>
+              <h4>Sistemas web</h4>
+              <p>Cuando lo que necesitas no existe hecho: órdenes de trabajo, clientes, expedientes, reportes. Todo en un solo lugar, en vez de cinco archivos y nadie sabe cuál es el bueno.</p>
+            </div>
+            <div>
+              <h4>Apps para celular</h4>
+              <p>Para iPhone y Android, publicadas en las tiendas. Para tu equipo, para tus clientes o para los dos.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="bloque">
-      <div class="rev"><h2>Lo que he construido</h2></div>
+      <div class="rev"><h2>Lo que hemos construido</h2></div>
 
       <article class="caso rev">
         <div class="caso-head apar">
@@ -316,7 +379,7 @@
         </div>
         <p class="que apar" style="--d:.06s">Una plataforma completa para clínicas de fisioterapia que hoy llevan sus expedientes en papel.</p>
         <p class="apar" style="--d:.12s">Tres piezas conectadas al mismo expediente: el fisioterapeuta atiende y receta ejercicios, el paciente hace su rutina en casa y reporta cómo le fue, y la clínica ve todo desde el panel de administración.</p>
-        <p class="apar" style="--d:.18s">Soy cofundador y la construí de principio a fin. <a class="link" href="https://www.nopain.mx">nopain.mx</a></p>
+        <p class="apar" style="--d:.18s">Miguel es cofundador y la construyó de principio a fin. <a class="link" href="https://www.nopain.mx">nopain.mx</a></p>
         <ul class="piezas apar" style="--d:.24s">
           <li>App del fisioterapeuta</li>
           <li>App del paciente</li>
@@ -326,11 +389,25 @@
 
       <article class="caso rev">
         <div class="caso-head apar">
+          <h3>HoraMed</h3>
+          <span class="estado">En pruebas</span>
+        </div>
+        <p class="que apar" style="--d:.06s">Una app para Android que ayuda a no olvidar ninguna medicina.</p>
+        <p class="apar" style="--d:.12s">Escaneas la receta con la cámara y la app arma los horarios. A la hora de cada toma avisa, y sigue avisando hasta que confirmas que ya la tomaste. También lleva la cuenta de cuántos días te alcanza cada medicamento.</p>
+        <ul class="piezas apar" style="--d:.18s">
+          <li>Escaneo de recetas</li>
+          <li>Recordatorios que insisten</li>
+          <li>Control de existencias</li>
+        </ul>
+      </article>
+
+      <article class="caso rev">
+        <div class="caso-head apar">
           <h3>Gamba</h3>
           <span class="estado">Tienda en línea</span>
         </div>
         <p class="que apar" style="--d:.06s">Tienda de artículos de limpieza, con catálogo en línea y pedidos por WhatsApp.</p>
-        <p class="apar" style="--d:.12s">Rediseñé la tienda completa alrededor de una sola pregunta: qué hace falta para que alguien que entra desde el celular termine mandando su pedido.</p>
+        <p class="apar" style="--d:.12s">Rediseñamos la tienda completa alrededor de una sola pregunta: qué hace falta para que alguien que entra desde el celular termine mandando su pedido.</p>
       </article>
     </section>
   </div>
@@ -342,22 +419,36 @@
         <div class="row apar" style="--d:.05s">
           <span class="num" aria-hidden="true">1</span>
           <div>
-            <h3>Me cuentas cómo trabajas hoy</h3>
-            <p>Sin tecnicismos. Qué haces en el día, dónde se te va el tiempo y qué se te pierde. De ahí sale lo que hay que construir.</p>
+            <h3>Nos cuentas cómo trabajas hoy</h3>
+            <p>La primera plática no cuesta. Sin tecnicismos: qué haces en el día, dónde se te va el tiempo y qué se te pierde. De ahí sale lo que hay que construir.</p>
           </div>
         </div>
-        <div class="row apar" style="--d:.12s">
+        <div class="row apar" style="--d:.1s">
           <span class="num" aria-hidden="true">2</span>
           <div>
-            <h3>Te enseño las pantallas antes de programar</h3>
-            <p>Ves cómo se va a ver y me dices qué cambiar. Nada se programa hasta que estés de acuerdo, que es cuando los cambios todavía salen baratos.</p>
+            <h3>Te damos un precio cerrado</h3>
+            <p>Antes de empezar sabes cuánto cuesta y qué incluye. Sin sorpresas a medio camino.</p>
           </div>
         </div>
-        <div class="row apar" style="--d:.19s">
+        <div class="row apar" style="--d:.15s">
           <span class="num" aria-hidden="true">3</span>
+          <div>
+            <h3>Ves las pantallas antes de programar</h3>
+            <p>Te enseñamos cómo se va a ver y nos dices qué cambiar. Nada se programa hasta que estés de acuerdo, que es cuando los cambios todavía salen baratos.</p>
+          </div>
+        </div>
+        <div class="row apar" style="--d:.2s">
+          <span class="num" aria-hidden="true">4</span>
           <div>
             <h3>Recibes avances cada semana</h3>
             <p>Lo pruebas tú mismo desde tu celular mientras se construye. En todo momento sabes en qué vamos y qué sigue.</p>
+          </div>
+        </div>
+        <div class="row apar" style="--d:.25s">
+          <span class="num" aria-hidden="true">5</span>
+          <div>
+            <h3>Seguimos contigo después de entregar</h3>
+            <p>Cuando el sistema ya está en uso, te damos soporte y mantenimiento. No desaparecemos el día de la entrega.</p>
           </div>
         </div>
       </div>
@@ -366,16 +457,20 @@
 
   <div class="wrap">
     <section class="bloque cierre rev">
-      <h2>Cuéntame qué necesitas</h2>
-      <p class="apar" style="--d:.06s">No hace falta que sepas de tecnología ni que traigas el proyecto definido. Con que me expliques qué te está costando trabajo, es suficiente para empezar.</p>
-      <p class="apar" style="--d:.12s"><a class="mail-xl" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a></p>
+      <h2>Cuéntanos qué necesitas</h2>
+      <p class="apar" style="--d:.06s">No hace falta que sepas de tecnología ni que traigas el proyecto definido. Con que nos expliques qué te está costando trabajo, es suficiente para empezar.</p>
+      <p class="apar" style="--d:.12s"><a class="tel-xl" href="tel:+524499902477" aria-label="Llamar al 449 990 2477">449&nbsp;990&nbsp;2477</a></p>
+      <p class="canales apar" style="--d:.18s">
+        <a class="wa" href="https://wa.me/524499902477?text=Hola%2C%20quiero%20platicar%20de%20un%20proyecto">Escríbenos por WhatsApp</a>
+        <a class="mail" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a>
+      </p>
     </section>
   </div>
 </main>
 
 <div class="wrap">
   <footer>
-    <p class="stack">Miguel Aranda — Aguascalientes, México. Cofundador de NoPain Technologies. Trabajo con React&nbsp;Native, Flutter, Next.js y Laravel.</p>
+    <p class="stack">Miguel Aranda y Maximiliano Márquez — Aguascalientes, México. WhatsApp y llamadas al <a href="tel:+524499902477">449&nbsp;990&nbsp;2477</a>. Trabajamos con React&nbsp;Native, Flutter, Next.js y Laravel.</p>
     <nav>
       <a href="https://www.nopain.mx" rel="me">NoPain</a>
       <a href="https://github.com/marandaguilar" rel="me">GitHub</a>
