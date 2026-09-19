@@ -32,6 +32,12 @@
     --card-ink:#f3f0ea;
     --card-soft:#cfcabf;
     --card-rule:rgba(243,240,234,.42);
+    --vitrina:#1c1e23;
+    --vitrina-ink:#f0ede7;
+    --vitrina-soft:#a6a8ad;
+    --vitrina-rule:rgba(255,255,255,.15);
+    --vitrina-azul:#9db4ff;
+
     --card-bg:linear-gradient(158deg,#2b2d33 0%,#212329 52%,#191b20 100%);
     --card-filo:rgba(255,255,255,.07);
     --card-sombra:0 1.6cqw 3.4cqw -1.2cqw rgba(0,0,0,.5), 0 .4cqw 1cqw -.5cqw rgba(0,0,0,.35);
@@ -54,6 +60,10 @@
       --manila:#33291a;
       --manila-ink:#eadfc6;
       --manila-rule:#4d3f28;
+      /* En oscuro la banda no puede ser mas oscura que la pagina: se levanta */
+      --vitrina:#24272e;
+      --vitrina-ink:#eae8e2;
+      --vitrina-soft:#9fa2a8;
       /* Sobre fondo oscuro la tarjeta necesita mas cuerpo y filo para leerse como objeto */
       --card-bg:linear-gradient(158deg,#34373f 0%,#282b31 52%,#202228 100%);
       --card-filo:rgba(255,255,255,.14);
@@ -334,6 +344,22 @@
     border:1px solid var(--rule); border-radius:.4rem; padding:.3rem .7rem;
   }
   .piezas .ic { width:.95rem; height:.95rem; color:var(--blue); }
+
+  /* ————— Vitrina: los casos sobre banda oscura, para que no se confundan
+     con la lista de servicios. Mismo carbon de la tarjeta, sin color nuevo. ————— */
+  .vitrina {
+    background:var(--vitrina); color:var(--vitrina-ink);
+    margin-top:clamp(4.5rem,10vw,8rem);
+    padding-bottom:clamp(3.5rem,8vw,6rem);
+  }
+  .vitrina .caso::before { background:var(--vitrina-rule); }
+  .vitrina .caso .que { color:var(--vitrina-ink); }
+  .vitrina .caso p { color:var(--vitrina-soft); }
+  .vitrina .caso a.link { color:var(--vitrina-azul); }
+  .vitrina .estado,
+  .vitrina .piezas li { color:var(--vitrina-soft); border-color:var(--vitrina-rule); }
+  .vitrina .piezas .ic { color:var(--vitrina-azul); }
+  .vitrina :focus-visible { outline-color:var(--vitrina-azul); }
 
   /* ————— Proceso ————— */
   .proceso {
@@ -664,8 +690,10 @@
         </div>
       </div>
     </section>
+  </div>
 
-    <section class="bloque">
+  <section class="bloque vitrina">
+    <div class="wrap">
       <div class="rev"><h2>Lo que hemos construido</h2></div>
 
       <article class="caso rev">
@@ -710,8 +738,8 @@
           <li><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Pedidos por WhatsApp</li>
         </ul>
       </article>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <section class="bloque proceso rev">
     <div class="wrap">
