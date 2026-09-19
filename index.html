@@ -127,13 +127,9 @@
     margin:0;
   }
   .portada h1 .n { display:block; white-space:nowrap; }
-  .portada h1 .y {
-    display:block;
-    font-family:var(--text); font-weight:400;
-    font-size:.3em; letter-spacing:.02em;
-    color:var(--ink-soft);
-    margin:.3em 0 .24em;
-  }
+  /* La "y" va al final del primer renglon, del mismo tamano que los nombres
+     pero mas ligera, para que una sin competir con ellos. */
+  .portada h1 .y { font-weight:600; color:var(--ink-soft); }
   .rol {
     font-size:clamp(1.05rem,2vw,1.3rem);
     color:var(--ink-soft);
@@ -513,7 +509,7 @@
 
 <header class="portada wrap">
   <div class="portada-titulo">
-    <h1><span class="n">Miguel Aranda</span><span class="y">y</span><span class="n">Maximiliano Márquez</span></h1>
+    <h1><span class="n">Miguel Aranda <span class="y">y</span></span><span class="n">Maximiliano Márquez</span></h1>
   </div>
 
   <div class="portada-grid">
