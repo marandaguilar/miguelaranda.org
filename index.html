@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miguel Aranda — Sistemas web, inventarios y catálogos digitales</title>
+<title>Miguel Aranda y Maximiliano Márquez — Sistemas web, inventarios y catálogos digitales</title>
 <meta name="description" content="Sistemas web, inventarios, punto de venta, catálogos digitales y códigos QR para negocios que hoy trabajan con libretas, Excel y WhatsApp. Aguascalientes, México.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>M</text></svg>">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Miguel Aranda — Sistemas web, inventarios y catálogos digitales">
+<meta property="og:title" content="Miguel Aranda y Maximiliano Márquez — Sistemas web, inventarios y catálogos digitales">
 <meta property="og:description" content="Sistemas web, inventarios, punto de venta, catálogos digitales y códigos QR para negocios que hoy trabajan con libretas, Excel y WhatsApp.">
 <meta property="og:url" content="https://miguelaranda.org/">
 <meta property="og:locale" content="es_MX">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Cormorant+Garamond:wght@300;400&display=swap">
 
 <style>
   :root {
@@ -28,8 +28,17 @@
     --manila-ink:#2a2213;
     --manila-rule:#c9b283;
 
+    /* La tarjeta es un objeto impreso: conserva sus colores en claro y en oscuro */
+    --card-ink:#f3f0ea;
+    --card-soft:#cfcabf;
+    --card-rule:rgba(243,240,234,.42);
+    --card-bg:linear-gradient(158deg,#2b2d33 0%,#212329 52%,#191b20 100%);
+    --card-filo:rgba(255,255,255,.07);
+    --card-sombra:0 1.6cqw 3.4cqw -1.2cqw rgba(0,0,0,.5), 0 .4cqw 1cqw -.5cqw rgba(0,0,0,.35);
+
     --display:'Bricolage Grotesque','Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     --text:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
 
     --gutter:clamp(1.25rem,5vw,4rem);
     --measure:34rem;
@@ -45,6 +54,10 @@
       --manila:#33291a;
       --manila-ink:#eadfc6;
       --manila-rule:#4d3f28;
+      /* Sobre fondo oscuro la tarjeta necesita mas cuerpo y filo para leerse como objeto */
+      --card-bg:linear-gradient(158deg,#34373f 0%,#282b31 52%,#202228 100%);
+      --card-filo:rgba(255,255,255,.14);
+      --card-sombra:0 1.8cqw 4cqw -1.2cqw rgba(0,0,0,.75), 0 0 0 1px rgba(0,0,0,.4);
     }
   }
 
@@ -75,29 +88,63 @@
 
   a { color:inherit; }
 
-  /* ————— Portada: una pantalla, nada más ————— */
+  .sprite { position:absolute; width:0; height:0; overflow:hidden; }
+  .sr {
+    position:absolute; width:1px; height:1px;
+    margin:-1px; padding:0; border:0; overflow:hidden;
+    clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap;
+  }
+  .ic {
+    width:1.35rem; height:1.35rem; flex:none;
+    fill:none; stroke:currentColor; stroke-width:1.6;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+
+  /* ————— Portada ————— */
   .portada {
     min-height:100vh; min-height:100svh;
     display:flex; flex-direction:column; justify-content:center;
-    padding-top:4rem; padding-bottom:6rem;
-    position:relative;
+    padding-top:4.5rem; padding-bottom:4.5rem;
   }
+  .portada-titulo { container-type:inline-size; margin-bottom:2.4rem; }
+  .portada-grid { display:grid; gap:2.6rem; align-items:center; }
+  @media (min-width:62rem) {
+    .portada-titulo { margin-bottom:3rem; }
+    .portada-grid {
+      grid-template-columns:minmax(0,1fr) minmax(0,26rem);
+      column-gap:4.5rem; row-gap:0;
+      align-items:center;
+    }
+    .portada-texto   { grid-column:1; grid-row:1; align-self:end; }
+    .portada-acciones{ grid-column:1; grid-row:2; align-self:start; padding-top:2.2rem; }
+    .tarjeta-col     { grid-column:2; grid-row:1 / span 2; }
+  }
+
+  /* El nombre mas largo manda el tamano: asi ninguno de los dos se parte nunca */
   .portada h1 {
-    font-size:clamp(2.9rem,9vw,5.5rem);
-    line-height:.95;
-    margin-bottom:1.1rem;
+    font-size:clamp(1.5rem,9.2cqi,4.4rem);
+    line-height:1.02;
+    margin:0;
+  }
+  .portada h1 .n { display:block; white-space:nowrap; }
+  .portada h1 .y {
+    display:block;
+    font-family:var(--text); font-weight:400;
+    font-size:.3em; letter-spacing:.02em;
+    color:var(--ink-soft);
+    margin:.3em 0 .24em;
   }
   .rol {
     font-size:clamp(1.05rem,2vw,1.3rem);
     color:var(--ink-soft);
     max-width:30rem;
-    margin:0 0 2.4rem;
+    margin:0;
   }
   .rol b { color:var(--ink); font-weight:600; }
 
   .mail {
     font-family:var(--display); font-weight:600; letter-spacing:-.02em;
-    font-size:clamp(1.15rem,2.6vw,1.6rem);
+    font-size:clamp(1.1rem,2.4vw,1.45rem);
     color:var(--blue); text-decoration:none;
     border-bottom:3px solid var(--blue);
     padding-bottom:.12em;
@@ -105,31 +152,114 @@
   }
   .mail:hover, .mail:focus-visible { background:var(--blue); color:var(--paper); }
 
-  .vermas {
-    position:absolute; left:var(--gutter); bottom:2.5rem;
-    display:inline-flex; flex-direction:column; gap:.7rem;
-    font-size:.95rem; color:var(--ink-soft);
-    text-decoration:none;
+  /* Botón de bajar: ahora sí se ve y se siente botón */
+  .portada-acciones p { margin:0 0 2.2rem; }
+  .bajar {
+    display:inline-flex; align-items:center; gap:.7rem;
+    margin-top:0;
+    font-family:var(--display); font-weight:600; letter-spacing:-.015em;
+    font-size:1.05rem; line-height:1;
+    color:var(--ink); text-decoration:none;
+    background:transparent;
+    border:2px solid var(--ink); border-radius:.5rem;
+    padding:.95rem 1.4rem;
+    transition:background-color .18s ease, color .18s ease, transform .18s ease;
   }
-  .vermas .linea {
-    width:1px; height:2.6rem; background:var(--rule);
-    position:relative; overflow:hidden;
+  .bajar .ic { width:1.15rem; height:1.15rem; stroke-width:2; }
+  .bajar:hover, .bajar:focus-visible { background:var(--ink); color:var(--paper); }
+  .bajar:active { transform:translateY(1px); }
+  html.anim .bajar .ic { animation:bota 2.4s cubic-bezier(.6,0,.3,1) infinite; }
+  @keyframes bota {
+    0%, 62%, 100% { transform:translateY(0); }
+    76%           { transform:translateY(3px); }
   }
-  .vermas .linea::after {
-    content:''; position:absolute; inset:0;
-    background:var(--ink);
-    transform:translateY(-100%);
+
+  /* ————— Tarjeta de presentación en 3D ————— */
+  .tarjeta-col { display:flex; flex-direction:column; align-items:center; gap:1rem; }
+
+  .tarjeta {
+    display:block; width:min(100%,27rem);
+    container-type:inline-size;
+    padding:0; margin:0; border:0; background:none;
+    -webkit-appearance:none; appearance:none;
+    font:inherit; color:inherit; text-align:left;
+    cursor:pointer;
+    perspective:1500px;
+    -webkit-tap-highlight-color:transparent;
   }
-  html.anim .vermas .linea::after { animation:cae 2.6s cubic-bezier(.6,0,.3,1) infinite; }
-  @keyframes cae {
-    0%   { transform:translateY(-100%); }
-    55%  { transform:translateY(0); }
-    100% { transform:translateY(100%); }
+  .tarjeta-tilt {
+    display:block;
+    transform-style:preserve-3d;
+    transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+    transition:transform .5s cubic-bezier(.2,.8,.25,1);
   }
-  .vermas:hover, .vermas:focus-visible { color:var(--ink); }
-  /* una vez que se bajó, el indicador ya cumplió: deja de moverse */
-  html.bajo .vermas { opacity:0; pointer-events:none; transition:opacity .4s ease; }
-  html.bajo .vermas .linea::after { animation:none; }
+  .tarjeta.moviendo .tarjeta-tilt { transition:transform .1s linear; }
+  .tarjeta-3d {
+    display:block; position:relative;
+    transform-style:preserve-3d;
+    transform:rotateY(var(--flip,0deg));
+    transition:transform .95s cubic-bezier(.2,.78,.24,1);
+  }
+  .cara {
+    display:block; position:absolute; inset:0;
+    -webkit-backface-visibility:hidden; backface-visibility:hidden;
+    border-radius:.7rem; overflow:hidden;
+    background:var(--card-bg);
+    box-shadow:var(--card-sombra), inset 0 0 0 1px var(--card-filo);
+  }
+  .cara.frente { position:relative; aspect-ratio:1.75; }
+  .cara.reverso { transform:rotateY(180deg); }
+
+  .brillo {
+    display:block; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(58% 80% at var(--mx,50%) var(--my,30%), rgba(255,255,255,.13), rgba(255,255,255,0) 68%);
+    opacity:0; transition:opacity .35s ease;
+  }
+  .tarjeta:hover .brillo, .tarjeta:focus-visible .brillo { opacity:1; }
+
+  .cara-in {
+    display:flex; flex-direction:column; justify-content:center;
+    position:absolute; inset:0;
+    padding:4.5cqw 6cqw 0;
+    color:var(--card-ink);
+    font-family:var(--serif); font-weight:300;
+  }
+  .nombre {
+    display:block; text-align:center; text-transform:uppercase;
+    font-size:5.5cqw; font-weight:400; line-height:1.05;
+    letter-spacing:.135em; text-indent:.135em;
+  }
+  .rolcard {
+    display:flex; align-items:flex-start; justify-content:center;
+    gap:3.4cqw; margin-top:2.4cqw;
+  }
+  .rolcard .rl {
+    display:block; flex:none;
+    width:8.2cqw; height:1px; margin-top:2.1cqw;
+    background:var(--card-rule);
+  }
+  .rolcard .txt {
+    display:block; text-align:center; text-transform:uppercase;
+    font-size:2.35cqw; line-height:1.72;
+    letter-spacing:.36em; text-indent:.36em;
+    color:var(--card-ink);
+  }
+  .datos {
+    display:flex; align-items:center; justify-content:space-between;
+    gap:2cqw; margin-top:7.5cqw;
+    font-size:2.4cqw; letter-spacing:.015em; color:var(--card-soft);
+  }
+  .datos .dato { display:inline-flex; align-items:center; gap:1.3cqw; white-space:nowrap; }
+  .datos .ic { width:2.7cqw; height:2.7cqw; opacity:.9; }
+
+  .pista {
+    display:inline-flex; align-items:center; gap:.5rem;
+    margin:0; font-size:.88rem; color:var(--ink-soft);
+    transition:opacity .4s ease;
+  }
+  .pista .ic { width:1rem; height:1rem; }
+  html.girada .pista { opacity:0; }
+  .tarjeta:focus-visible { outline:2px solid var(--blue); outline-offset:8px; border-radius:.8rem; }
 
   /* ————— Secciones ————— */
   section.bloque { padding:clamp(4.5rem,10vw,8rem) 0 0; scroll-margin-top:1.5rem; }
@@ -139,7 +269,6 @@
     margin-bottom:2.5rem;
   }
 
-  /* Servicios y pasos comparten el mismo esqueleto de renglones */
   .row {
     display:grid; gap:.4rem 3rem;
     padding:1.8rem 0;
@@ -160,13 +289,21 @@
     .row { grid-template-columns:16rem 1fr; align-items:start; }
   }
 
-  /* Servicios: el grupo a la izquierda, lo que incluye a la derecha */
+  /* Servicios: cada uno con su icono, para que se lean de un vistazo */
   .intro { max-width:var(--measure); margin:-1rem 0 2.5rem; font-size:1.15rem; }
-  .servicios { display:grid; gap:1.5rem; }
+  .servicios { list-style:none; margin:0; padding:0; display:grid; gap:1.6rem; }
+  .servicios li { display:grid; grid-template-columns:auto 1fr; gap:0 1rem; align-items:start; }
+  .chip {
+    display:grid; place-items:center;
+    width:2.5rem; height:2.5rem; border-radius:.55rem;
+    border:1px solid var(--rule); color:var(--blue);
+    background:color-mix(in srgb, var(--blue) 5%, transparent);
+  }
+  .chip .ic { width:1.3rem; height:1.3rem; }
   .servicios h4 {
     font-family:var(--text); font-weight:600;
-    font-size:1.1rem; letter-spacing:-.01em; line-height:1.3;
-    margin:0 0 .25rem;
+    font-size:1.1rem; letter-spacing:-.01em; line-height:1.4;
+    margin:.2rem 0 .25rem;
   }
   @media (max-width:47.99rem) {
     .row .servicios { margin-top:1rem; }
@@ -196,11 +333,13 @@
     max-width:var(--measure);
   }
   .piezas li {
+    display:inline-flex; align-items:center; gap:.45rem;
     font-size:.85rem; color:var(--ink-soft);
     border:1px solid var(--rule); border-radius:.4rem; padding:.3rem .7rem;
   }
+  .piezas .ic { width:.95rem; height:.95rem; color:var(--blue); }
 
-  /* ————— Proceso, sobre el folder ————— */
+  /* ————— Proceso ————— */
   .proceso {
     background:var(--manila); color:var(--manila-ink);
     margin-top:clamp(4.5rem,10vw,8rem);
@@ -217,38 +356,48 @@
     .proceso h2 { font-size:2.2rem; margin:0; padding-top:1.5rem; }
   }
 
-  /* ————— Cierre ————— */
+  /* ————— Cierre: los dos socios, al mismo nivel ————— */
   section.bloque.cierre { padding-bottom:clamp(4rem,9vw,7rem); }
-  .cierre p { max-width:var(--measure); margin:0 0 2rem; }
-  /* El número va como en un rótulo: grande, para que se lea de lejos */
-  .tel-xl {
+  .cierre > p { max-width:var(--measure); margin:0 0 2.8rem; }
+  .socios { display:grid; gap:1.25rem; }
+  @media (min-width:44rem) { .socios { grid-template-columns:1fr 1fr; gap:1.5rem; } }
+  .socio {
+    border:1px solid var(--rule); border-radius:.7rem;
+    padding:1.6rem 1.5rem 1.5rem;
+  }
+  .socio-nombre {
+    font-family:var(--display); font-weight:800; letter-spacing:-.03em;
+    font-size:1.45rem; line-height:1.1; margin:0;
+  }
+  .socio-rol { margin:.35rem 0 1.1rem; font-size:.95rem; color:var(--ink-soft); }
+  .socio-tel {
     display:inline-block;
     font-family:var(--display); font-weight:800; letter-spacing:-.04em;
-    font-size:clamp(2.6rem,13vw,6.5rem);
-    line-height:1;
+    font-size:clamp(1.9rem,5.4vw,2.6rem); line-height:1;
     white-space:nowrap;
     color:var(--blue); text-decoration:none;
-    border-bottom:.06em solid var(--blue);
-    padding-bottom:.04em;
+    border-bottom:.055em solid var(--blue); padding-bottom:.04em;
     transition:background-color .15s ease, color .15s ease;
   }
-  .tel-xl:hover, .tel-xl:focus-visible { background:var(--blue); color:var(--paper); }
-  .cierre p.canales {
-    display:flex; flex-wrap:wrap; align-items:center; gap:1rem 1.8rem;
-    margin:2.2rem 0 0;
-  }
+  .socio-tel:hover, .socio-tel:focus-visible { background:var(--blue); color:var(--paper); }
   .wa {
-    display:inline-block;
+    display:inline-flex; align-items:center; gap:.55rem;
+    margin-top:1.4rem;
     font-family:var(--display); font-weight:600; letter-spacing:-.015em;
-    font-size:1.15rem;
+    font-size:1.05rem;
     background:var(--blue); color:var(--paper);
     text-decoration:none;
-    padding:.75rem 1.3rem; border-radius:.4rem;
+    padding:.75rem 1.2rem; border-radius:.4rem;
     border:2px solid var(--blue);
     transition:background-color .15s ease, color .15s ease;
   }
+  .wa .ic { width:1.1rem; height:1.1rem; }
   .wa:hover, .wa:focus-visible { background:transparent; color:var(--blue); }
-  .cierre .mail { font-size:1.15rem; border-bottom-width:2px; }
+  .cierre .correo-comun {
+    display:flex; flex-wrap:wrap; align-items:center; gap:.6rem 1rem;
+    margin:2.2rem 0 0; color:var(--ink-soft); font-size:.98rem;
+  }
+  .cierre .correo-comun .mail { font-size:1.1rem; border-bottom-width:2px; }
 
   /* ————— Pie ————— */
   footer {
@@ -264,7 +413,7 @@
     text-decoration-color:var(--rule); text-decoration-thickness:1px; text-underline-offset:.25em;
   }
   footer a:hover, footer a:focus-visible { color:var(--ink); text-decoration-color:currentColor; }
-  .stack { max-width:26rem; }
+  .stack { max-width:30rem; }
 
   :focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
   ::selection { background:var(--blue); color:#fff; }
@@ -302,15 +451,131 @@
 </head>
 <body>
 
-<header class="portada wrap">
-  <h1>Miguel Aranda</h1>
-  <p class="rol">Somos dos socios y hacemos <b>sistemas web, inventarios y catálogos digitales</b> para negocios que hoy trabajan con libretas, Excel y WhatsApp.</p>
-  <p><a class="mail" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a></p>
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-catalogo" viewBox="0 0 24 24">
+    <path d="M12 7.2C10.3 5.9 8.2 5.2 5.5 5.2H3v12.6h2.5c2.7 0 4.8.7 6.5 2"/>
+    <path d="M12 7.2c1.7-1.3 3.8-2 6.5-2H21v12.6h-2.5c-2.7 0-4.8.7-6.5 2"/>
+    <path d="M12 7.2v12.6"/>
+  </symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24">
+    <rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.2"/>
+    <rect x="14" y="3.5" width="6.5" height="6.5" rx="1.2"/>
+    <rect x="3.5" y="14" width="6.5" height="6.5" rx="1.2"/>
+    <path d="M14 14h3v3h-3zM20.5 14v2.5M20.5 20.5H18M14 20.5h1.5"/>
+  </symbol>
+  <symbol id="i-tienda" viewBox="0 0 24 24">
+    <path d="M4.2 10.4V20a1 1 0 0 0 1 1h13.6a1 1 0 0 0 1-1v-9.6"/>
+    <path d="M3 9.6 4.8 4.2a1 1 0 0 1 .95-.7h12.5a1 1 0 0 1 .95.7L21 9.6a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0Z"/>
+    <path d="M9.6 21v-5.4h4.8V21"/>
+  </symbol>
+  <symbol id="i-inventario" viewBox="0 0 24 24">
+    <path d="M3 8.2 12 3.5l9 4.7-9 4.7-9-4.7Z"/>
+    <path d="M3 8.2v7.6l9 4.7 9-4.7V8.2"/>
+    <path d="M12 12.9v7.6"/>
+  </symbol>
+  <symbol id="i-cobro" viewBox="0 0 24 24">
+    <path d="M6 3.5h12a1 1 0 0 1 1 1v16l-2.4-1.5-2.3 1.5-2.3-1.5-2.3 1.5L7.4 19 5 20.5v-16a1 1 0 0 1 1-1Z"/>
+    <path d="M8.6 8.2h6.8M8.6 11.8h6.8M8.6 15.4h4"/>
+  </symbol>
+  <symbol id="i-agenda" viewBox="0 0 24 24">
+    <rect x="3.3" y="5" width="17.4" height="15.7" rx="2"/>
+    <path d="M3.3 10h17.4M8 3.4v3.1M16 3.4v3.1"/>
+    <path d="M9.2 15.1l2 2 3.6-3.7"/>
+  </symbol>
+  <symbol id="i-sistema" viewBox="0 0 24 24">
+    <rect x="3" y="4.4" width="18" height="15.2" rx="2"/>
+    <path d="M3 9.2h18M9.2 9.2v10.4"/>
+    <path d="M12.4 12.6h5.2M12.4 15.8h3.2"/>
+  </symbol>
+  <symbol id="i-app" viewBox="0 0 24 24">
+    <rect x="6.4" y="2.6" width="11.2" height="18.8" rx="2.6"/>
+    <path d="M10.4 18.6h3.2"/>
+  </symbol>
+  <symbol id="i-flecha" viewBox="0 0 24 24">
+    <path d="M12 4.5v15m0 0 6-6m-6 6-6-6"/>
+  </symbol>
+  <symbol id="i-girar" viewBox="0 0 24 24">
+    <path d="M20.2 12a8.2 8.2 0 1 1-2.6-6"/>
+    <path d="M20.6 2.9v4.6H16"/>
+  </symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24">
+    <path d="M3.4 20.6l1.3-4.6a8.4 8.4 0 1 1 3.4 3.3l-4.7 1.3Z"/>
+    <path d="M9 8.6c.3 1.5 1.2 3 2.3 4 1 1 2.2 1.6 3.4 1.9l1-1.5 2 1-.6 1.7c-1.9.5-4.1-.5-5.8-2.2s-2.7-3.9-2.2-5.8l1.7-.6 1 2L9 8.6Z"/>
+  </symbol>
+  <symbol id="i-tel-lleno" viewBox="0 0 24 24">
+    <path fill="currentColor" stroke="none" d="M6.7 2.6c.5 0 1 .3 1.2.8l1.5 3.3c.2.5.1 1-.3 1.4L7.8 9.3a13 13 0 0 0 6 6l1.2-1.3c.4-.4.9-.5 1.4-.3l3.3 1.5c.5.2.8.7.8 1.2v3.1c0 .9-.7 1.6-1.6 1.6C10.5 21.1 2.9 13.5 2.9 4.2c0-.9.7-1.6 1.6-1.6h2.2Z"/>
+  </symbol>
+  <symbol id="i-mail-lleno" viewBox="0 0 24 24">
+    <path fill="currentColor" stroke="none" d="M2.6 6.7 12 12.4l9.4-5.7a2 2 0 0 0-1.9-1.4H4.5a2 2 0 0 0-1.9 1.4Z"/>
+    <path fill="currentColor" stroke="none" d="M21.6 8.7 12 14.5 2.4 8.7v8.1a2 2 0 0 0 2 2h15.2a2 2 0 0 0 2-2V8.7Z"/>
+  </symbol>
+</defs></svg>
 
-  <a class="vermas" href="#trabajo">
-    Ver más
-    <span class="linea" aria-hidden="true"></span>
-  </a>
+<header class="portada wrap">
+  <div class="portada-titulo">
+    <h1><span class="n">Miguel Aranda</span><span class="y">y</span><span class="n">Maximiliano Márquez</span></h1>
+  </div>
+
+  <div class="portada-grid">
+    <div class="portada-texto">
+      <p class="rol">Hacemos <b>sistemas web, inventarios y catálogos digitales</b> para negocios que hoy trabajan con libretas, Excel y WhatsApp.</p>
+    </div>
+
+    <div class="tarjeta-col">
+      <button class="tarjeta" id="tarjeta" type="button">
+        <span class="sr">Girar la tarjeta de presentación.</span>
+        <span class="tarjeta-tilt">
+          <span class="tarjeta-3d">
+
+            <span class="cara frente">
+              <span class="cara-in">
+                <span class="nombre">Miguel Aranda</span>
+                <span class="rolcard">
+                  <span class="rl" aria-hidden="true"></span>
+                  <span class="txt">Desarrollo &amp;<br>Producción</span>
+                  <span class="rl" aria-hidden="true"></span>
+                </span>
+                <span class="datos">
+                  <span class="dato"><svg class="ic" aria-hidden="true"><use href="#i-tel-lleno"/></svg>449 990 2477</span>
+                  <span class="dato"><svg class="ic" aria-hidden="true"><use href="#i-mail-lleno"/></svg>miguel@miguelaranda.org</span>
+                </span>
+              </span>
+              <span class="brillo" aria-hidden="true"></span>
+            </span>
+
+            <span class="cara reverso">
+              <span class="cara-in">
+                <span class="nombre">Maximiliano Márquez</span>
+                <span class="rolcard">
+                  <span class="rl" aria-hidden="true"></span>
+                  <span class="txt">Desarrollo &amp;<br>Automatizaciones</span>
+                  <span class="rl" aria-hidden="true"></span>
+                </span>
+                <span class="datos">
+                  <span class="dato"><svg class="ic" aria-hidden="true"><use href="#i-tel-lleno"/></svg>449 512 6933</span>
+                  <span class="dato"><svg class="ic" aria-hidden="true"><use href="#i-mail-lleno"/></svg>miguel@miguelaranda.org</span>
+                </span>
+              </span>
+              <span class="brillo" aria-hidden="true"></span>
+            </span>
+
+          </span>
+        </span>
+      </button>
+      <p class="pista">
+        <svg class="ic" aria-hidden="true"><use href="#i-girar"/></svg>
+        Gírala para ver la otra cara
+      </p>
+    </div>
+
+    <div class="portada-acciones">
+      <p><a class="mail" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a></p>
+      <a class="bajar" href="#trabajo">
+        Ver lo que hacemos
+        <svg class="ic" aria-hidden="true"><use href="#i-flecha"/></svg>
+      </a>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -321,50 +586,74 @@
       <div class="rows">
         <div class="row apar" style="--d:.05s">
           <h3>Para vender</h3>
-          <div class="servicios">
-            <div>
-              <h4>Catálogos digitales</h4>
-              <p>Tus productos con foto y precio en un solo enlace que mandas por WhatsApp. Para tiendas y distribuidoras que hoy mandan fotos sueltas y listas de precios en PDF.</p>
-            </div>
-            <div>
-              <h4>Códigos QR</h4>
-              <p>El menú en la mesa del restaurante o la cafetería, la ficha de un producto en el mostrador. Tu cliente lo abre con la cámara del celular, sin descargar nada.</p>
-            </div>
-            <div>
-              <h4>Páginas web y tiendas en línea</h4>
-              <p>Que te encuentren en internet y que los pedidos te lleguen completos, sin perder la venta a media conversación.</p>
-            </div>
-          </div>
+          <ul class="servicios">
+            <li>
+              <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-catalogo"/></svg></span>
+              <div>
+                <h4>Catálogos digitales</h4>
+                <p>Tus productos con foto y precio en un solo enlace que mandas por WhatsApp. Para tiendas y distribuidoras que hoy mandan fotos sueltas y listas de precios en PDF.</p>
+              </div>
+            </li>
+            <li>
+              <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-qr"/></svg></span>
+              <div>
+                <h4>Códigos QR</h4>
+                <p>El menú en la mesa del restaurante o la cafetería, la ficha de un producto en el mostrador. Tu cliente lo abre con la cámara del celular, sin descargar nada.</p>
+              </div>
+            </li>
+            <li>
+              <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-tienda"/></svg></span>
+              <div>
+                <h4>Páginas web y tiendas en línea</h4>
+                <p>Que te encuentren en internet y que los pedidos te lleguen completos, sin perder la venta a media conversación.</p>
+              </div>
+            </li>
+          </ul>
         </div>
         <div class="row apar" style="--d:.12s">
           <h3>Para llevar el control</h3>
-          <div class="servicios">
-            <div>
-              <h4>Inventario</h4>
-              <p>Qué entra, qué sale y qué se está acabando. La bodega de una distribuidora o los insumos de una cocina, sin contar a mano cada semana.</p>
-            </div>
-            <div>
-              <h4>Punto de venta y cobros</h4>
-              <p>Cobrar rápido, cerrar la caja al final del día y saber cuánto vendiste sin sumar tickets.</p>
-            </div>
-            <div>
-              <h4>Citas y reservas</h4>
-              <p>Tus clientes apartan su hora en línea y tú ves la agenda del día desde el celular. Para talleres y negocios de servicios.</p>
-            </div>
-          </div>
+          <ul class="servicios">
+            <li>
+              <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-inventario"/></svg></span>
+              <div>
+                <h4>Inventario</h4>
+                <p>Qué entra, qué sale y qué se está acabando. La bodega de una distribuidora o los insumos de una cocina, sin contar a mano cada semana.</p>
+              </div>
+            </li>
+            <li>
+              <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-cobro"/></svg></span>
+              <div>
+                <h4>Punto de venta y cobros</h4>
+                <p>Cobrar rápido, cerrar la caja al final del día y saber cuánto vendiste sin sumar tickets.</p>
+              </div>
+            </li>
+            <li>
+              <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-agenda"/></svg></span>
+              <div>
+                <h4>Citas y reservas</h4>
+                <p>Tus clientes apartan su hora en línea y tú ves la agenda del día desde el celular. Para talleres y negocios de servicios.</p>
+              </div>
+            </li>
+          </ul>
         </div>
         <div class="row apar" style="--d:.19s">
           <h3>A la medida</h3>
-          <div class="servicios">
-            <div>
-              <h4>Sistemas web</h4>
-              <p>Cuando lo que necesitas no existe hecho: órdenes de trabajo, clientes, expedientes, reportes. Todo en un solo lugar, en vez de cinco archivos y nadie sabe cuál es el bueno.</p>
-            </div>
-            <div>
-              <h4>Apps para celular</h4>
-              <p>Para iPhone y Android, publicadas en las tiendas. Para tu equipo, para tus clientes o para los dos.</p>
-            </div>
-          </div>
+          <ul class="servicios">
+            <li>
+              <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-sistema"/></svg></span>
+              <div>
+                <h4>Sistemas web</h4>
+                <p>Cuando lo que necesitas no existe hecho: órdenes de trabajo, clientes, expedientes, reportes. Todo en un solo lugar, en vez de cinco archivos y nadie sabe cuál es el bueno.</p>
+              </div>
+            </li>
+            <li>
+              <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-app"/></svg></span>
+              <div>
+                <h4>Apps para celular</h4>
+                <p>Para iPhone y Android, publicadas en las tiendas. Para tu equipo, para tus clientes o para los dos.</p>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -381,9 +670,9 @@
         <p class="apar" style="--d:.12s">Tres piezas conectadas al mismo expediente: el fisioterapeuta atiende y receta ejercicios, el paciente hace su rutina en casa y reporta cómo le fue, y la clínica ve todo desde el panel de administración.</p>
         <p class="apar" style="--d:.18s">Miguel es cofundador y la construyó de principio a fin. <a class="link" href="https://www.nopain.mx">nopain.mx</a></p>
         <ul class="piezas apar" style="--d:.24s">
-          <li>App del fisioterapeuta</li>
-          <li>App del paciente</li>
-          <li>Panel de administración</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-app"/></svg>App del fisioterapeuta</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-app"/></svg>App del paciente</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-sistema"/></svg>Panel de administración</li>
         </ul>
       </article>
 
@@ -395,9 +684,9 @@
         <p class="que apar" style="--d:.06s">Una app para Android que ayuda a no olvidar ninguna medicina.</p>
         <p class="apar" style="--d:.12s">Escaneas la receta con la cámara y la app arma los horarios. A la hora de cada toma avisa, y sigue avisando hasta que confirmas que ya la tomaste. También lleva la cuenta de cuántos días te alcanza cada medicamento.</p>
         <ul class="piezas apar" style="--d:.18s">
-          <li>Escaneo de recetas</li>
-          <li>Recordatorios que insisten</li>
-          <li>Control de existencias</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-qr"/></svg>Escaneo de recetas</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-agenda"/></svg>Recordatorios que insisten</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-inventario"/></svg>Control de existencias</li>
         </ul>
       </article>
 
@@ -408,6 +697,10 @@
         </div>
         <p class="que apar" style="--d:.06s">Tienda de artículos de limpieza, con catálogo en línea y pedidos por WhatsApp.</p>
         <p class="apar" style="--d:.12s">Rediseñamos la tienda completa alrededor de una sola pregunta: qué hace falta para que alguien que entra desde el celular termine mandando su pedido.</p>
+        <ul class="piezas apar" style="--d:.18s">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-catalogo"/></svg>Catálogo en línea</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Pedidos por WhatsApp</li>
+        </ul>
       </article>
     </section>
   </div>
@@ -458,10 +751,33 @@
   <div class="wrap">
     <section class="bloque cierre rev">
       <h2>Cuéntanos qué necesitas</h2>
-      <p class="apar" style="--d:.06s">No hace falta que sepas de tecnología ni que traigas el proyecto definido. Con que nos expliques qué te está costando trabajo, es suficiente para empezar.</p>
-      <p class="apar" style="--d:.12s"><a class="tel-xl" href="tel:+524499902477" aria-label="Llamar al 449 990 2477">449&nbsp;990&nbsp;2477</a></p>
-      <p class="canales apar" style="--d:.18s">
-        <a class="wa" href="https://wa.me/524499902477?text=Hola%2C%20quiero%20platicar%20de%20un%20proyecto">Escríbenos por WhatsApp</a>
+      <p class="apar" style="--d:.06s">No hace falta que sepas de tecnología ni que traigas el proyecto definido. Con que nos expliques qué te está costando trabajo, es suficiente para empezar. Escríbele a cualquiera de los dos.</p>
+
+      <div class="socios">
+        <div class="socio apar" style="--d:.12s">
+          <p class="socio-nombre">Miguel Aranda</p>
+          <p class="socio-rol">Desarrollo &amp; Producción</p>
+          <a class="socio-tel" href="tel:+524499902477" aria-label="Llamar a Miguel al 449 990 2477">449&nbsp;990&nbsp;2477</a>
+          <br>
+          <a class="wa" href="https://wa.me/524499902477?text=Hola%20Miguel%2C%20quiero%20platicar%20de%20un%20proyecto">
+            <svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>
+            WhatsApp a Miguel
+          </a>
+        </div>
+        <div class="socio apar" style="--d:.18s">
+          <p class="socio-nombre">Maximiliano Márquez</p>
+          <p class="socio-rol">Desarrollo &amp; Automatizaciones</p>
+          <a class="socio-tel" href="tel:+524495126933" aria-label="Llamar a Maximiliano al 449 512 6933">449&nbsp;512&nbsp;6933</a>
+          <br>
+          <a class="wa" href="https://wa.me/524495126933?text=Hola%20Maximiliano%2C%20quiero%20platicar%20de%20un%20proyecto">
+            <svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>
+            WhatsApp a Maximiliano
+          </a>
+        </div>
+      </div>
+
+      <p class="correo-comun apar" style="--d:.24s">
+        O por correo:
         <a class="mail" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a>
       </p>
     </section>
@@ -470,7 +786,7 @@
 
 <div class="wrap">
   <footer>
-    <p class="stack">Miguel Aranda y Maximiliano Márquez — Aguascalientes, México. WhatsApp y llamadas al <a href="tel:+524499902477">449&nbsp;990&nbsp;2477</a>. Trabajamos con React&nbsp;Native, Flutter, Next.js y Laravel.</p>
+    <p class="stack">Miguel Aranda y Maximiliano Márquez — Aguascalientes, México. WhatsApp y llamadas al <a href="tel:+524499902477">449&nbsp;990&nbsp;2477</a> o al <a href="tel:+524495126933">449&nbsp;512&nbsp;6933</a>. Trabajamos con React&nbsp;Native, Flutter, Next.js y Laravel.</p>
     <nav>
       <a href="https://www.nopain.mx" rel="me">NoPain</a>
       <a href="https://github.com/marandaguilar" rel="me">GitHub</a>
@@ -481,10 +797,57 @@
 
 <script>
   (function () {
+    var raiz = document.documentElement;
     var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (quieto || !('IntersectionObserver' in window)) return;
 
-    document.documentElement.classList.add('anim');
+    /* ————— La tarjeta gira ————— */
+    var tarjeta = document.getElementById('tarjeta');
+    if (tarjeta) {
+      var tilt = tarjeta.querySelector('.tarjeta-tilt');
+      var cara3d = tarjeta.querySelector('.tarjeta-3d');
+      var volteada = false;
+      var temporizador;
+
+      tarjeta.addEventListener('click', function () {
+        volteada = !volteada;
+        cara3d.style.setProperty('--flip', volteada ? '180deg' : '0deg');
+        raiz.classList.add('girada');
+      });
+
+      if (!quieto && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        tarjeta.addEventListener('pointermove', function (e) {
+          var caja = tarjeta.getBoundingClientRect();
+          var x = (e.clientX - caja.left) / caja.width;
+          var y = (e.clientY - caja.top) / caja.height;
+          tarjeta.classList.add('moviendo');
+          tilt.style.setProperty('--ry', ((x - .5) * 16).toFixed(2) + 'deg');
+          tilt.style.setProperty('--rx', ((.5 - y) * 11).toFixed(2) + 'deg');
+          tarjeta.querySelectorAll('.brillo').forEach(function (b) {
+            b.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+            b.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+          });
+        });
+        tarjeta.addEventListener('pointerleave', function () {
+          tarjeta.classList.remove('moviendo');
+          tilt.style.setProperty('--ry', '0deg');
+          tilt.style.setProperty('--rx', '0deg');
+        });
+
+        /* Un guiño al cargar: si no se mueve, nadie sabe que tiene otra cara. */
+        temporizador = setTimeout(function () {
+          if (volteada) return;
+          cara3d.style.setProperty('--flip', '-18deg');
+          setTimeout(function () {
+            if (!volteada) cara3d.style.setProperty('--flip', '0deg');
+          }, 620);
+        }, 1100);
+        tarjeta.addEventListener('pointerenter', function () { clearTimeout(temporizador); }, { once: true });
+      }
+    }
+
+    /* ————— Aparición al bajar ————— */
+    if (quieto || !('IntersectionObserver' in window)) return;
+    raiz.classList.add('anim');
 
     var io = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (e) {
@@ -495,11 +858,6 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
     document.querySelectorAll('.rev').forEach(function (el) { io.observe(el); });
-
-    var portada = document.querySelector('.portada');
-    new IntersectionObserver(function (entradas) {
-      document.documentElement.classList.toggle('bajo', !entradas[0].isIntersecting);
-    }, { threshold: 0 }).observe(portada);
   })();
 </script>
 
