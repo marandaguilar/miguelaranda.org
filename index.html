@@ -267,6 +267,41 @@
   html.girada .pista { opacity:0; }
   .tarjeta:focus-visible { outline:2px solid var(--blue); outline-offset:8px; border-radius:.8rem; }
 
+  /* ————— Indice flotante: marca en que seccion vas —————
+     Necesita aire a la derecha del contenido, asi que solo aparece
+     cuando la ventana da para el, no encima del texto. */
+  .indice { display:none; }
+  @media (min-width:80rem) {
+    .indice {
+      display:block; position:fixed; z-index:20;
+      right:1.5rem; top:50%; transform:translateY(-50%);
+      transition:opacity .45s ease, visibility .45s ease;
+    }
+    html.en-portada .indice { opacity:0; visibility:hidden; }
+    .indice ul { list-style:none; margin:0; padding:0; display:grid; gap:.9rem; }
+    .indice a {
+      display:flex; align-items:center; gap:.65rem;
+      font-size:.82rem; line-height:1;
+      color:var(--ink-soft); text-decoration:none;
+      transition:color .25s ease;
+    }
+    .indice .raya {
+      width:.9rem; height:1px; flex:none;
+      background:currentColor; opacity:.45;
+      transition:width .3s cubic-bezier(.2,.8,.25,1), opacity .3s ease;
+    }
+    .indice a:hover, .indice a:focus-visible { color:var(--ink); }
+    .indice a:hover .raya, .indice a:focus-visible .raya { width:1.5rem; opacity:.85; }
+    .indice a[aria-current] { color:var(--ink); font-weight:500; }
+    .indice a[aria-current] .raya { width:1.7rem; opacity:1; }
+
+    /* Sobre la banda oscura hay que invertir o desaparece */
+    .indice.sobre-oscuro a { color:var(--vitrina-soft); }
+    .indice.sobre-oscuro a:hover,
+    .indice.sobre-oscuro a:focus-visible,
+    .indice.sobre-oscuro a[aria-current] { color:var(--vitrina-ink); }
+  }
+
   /* ————— Secciones ————— */
   section.bloque { padding:clamp(4.5rem,10vw,8rem) 0 0; scroll-margin-top:1.5rem; }
   h2 {
@@ -604,6 +639,15 @@
   </div>
 </header>
 
+<nav class="indice" aria-label="Secciones de la pagina">
+  <ul>
+    <li><a href="#trabajo"><span class="raya" aria-hidden="true"></span>Servicios</a></li>
+    <li><a href="#casos"><span class="raya" aria-hidden="true"></span>Casos</a></li>
+    <li><a href="#proceso"><span class="raya" aria-hidden="true"></span>Proceso</a></li>
+    <li><a href="#contacto"><span class="raya" aria-hidden="true"></span>Contacto</a></li>
+  </ul>
+</nav>
+
 <main>
   <div class="wrap">
     <section class="bloque rev" id="trabajo">
@@ -692,7 +736,7 @@
     </section>
   </div>
 
-  <section class="bloque vitrina">
+  <section class="bloque vitrina" id="casos">
     <div class="wrap">
       <div class="rev"><h2>Lo que hemos construido</h2></div>
 
@@ -741,7 +785,7 @@
     </div>
   </section>
 
-  <section class="bloque proceso rev">
+  <section class="bloque proceso rev" id="proceso">
     <div class="wrap">
       <h2>Cómo trabajamos</h2>
       <div class="rows">
@@ -785,7 +829,7 @@
   </section>
 
   <div class="wrap">
-    <section class="bloque cierre rev">
+    <section class="bloque cierre rev" id="contacto">
       <h2>Cuéntanos qué necesitas</h2>
       <p class="apar" style="--d:.06s">No hace falta que sepas de tecnología ni que traigas el proyecto definido. Con que nos expliques qué te está costando trabajo, es suficiente para empezar. Escríbele a cualquiera de los dos.</p>
 
@@ -879,6 +923,44 @@
         }, 1100);
         tarjeta.addEventListener('pointerenter', function () { clearTimeout(temporizador); }, { once: true });
       }
+    }
+
+    /* ————— Indice: seccion actual y color sobre la banda ————— */
+    var indice = document.querySelector('.indice');
+    if (indice) {
+      var enlaces = [].slice.call(indice.querySelectorAll('a'));
+      var porId = {};
+      enlaces.forEach(function (a) {
+        var sec = document.querySelector(a.getAttribute('href'));
+        if (sec) porId[sec.id] = a;
+      });
+
+      /* Una linea imaginaria a media pantalla: la seccion que la cruza es la actual */
+      var linea = { rootMargin: '-50% 0px -50% 0px', threshold: 0 };
+
+      var obs = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          enlaces.forEach(function (a) { a.removeAttribute('aria-current'); });
+          if (porId[e.target.id]) porId[e.target.id].setAttribute('aria-current', 'true');
+        });
+      }, linea);
+      Object.keys(porId).forEach(function (id) { obs.observe(document.getElementById(id)); });
+
+      /* La misma linea decide si el indice va sobre el carbon */
+      var banda = document.querySelector('.vitrina');
+      if (banda) {
+        new IntersectionObserver(function (entradas) {
+          indice.classList.toggle('sobre-oscuro', entradas[0].isIntersecting);
+        }, linea).observe(banda);
+      }
+
+      /* En la portada estorba: entra cuando la primera pantalla se fue */
+      var portada = document.querySelector('.portada');
+      raiz.classList.toggle('en-portada', portada.getBoundingClientRect().bottom > 0);
+      new IntersectionObserver(function (entradas) {
+        raiz.classList.toggle('en-portada', entradas[0].isIntersecting);
+      }, { threshold: 0 }).observe(portada);
     }
 
     /* ————— Aparición al bajar ————— */
