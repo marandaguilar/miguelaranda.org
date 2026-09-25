@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Cormorant+Garamond:wght@300;400&display=swap">
 
 <style>
+  .poss-demo { display:block; width:100%; height:780px; border:0; border-radius:22px; background:#fff; }
+  @media (max-width:720px) { .poss-demo { height:940px; } }
   :root {
     --paper:#f0efea;
     --ink:#16181c;
@@ -642,6 +644,7 @@
 <nav class="indice" aria-label="Secciones de la pagina">
   <ul>
     <li><a href="#trabajo"><span class="raya" aria-hidden="true"></span>Servicios</a></li>
+    <li><a href="#poss"><span class="raya" aria-hidden="true"></span>POSS</a></li>
     <li><a href="#casos"><span class="raya" aria-hidden="true"></span>Casos</a></li>
     <li><a href="#proceso"><span class="raya" aria-hidden="true"></span>Proceso</a></li>
     <li><a href="#contacto"><span class="raya" aria-hidden="true"></span>Contacto</a></li>
@@ -735,6 +738,15 @@
       </div>
     </section>
   </div>
+
+  <section class="bloque" id="poss" aria-labelledby="poss-titulo">
+    <div class="wrap">
+      <h2 id="poss-titulo">POSS</h2>
+      <p>Punto de venta: productos, pedidos y tickets en un solo lugar.</p>
+      <iframe class="poss-demo" src="poss.html" title="POSS: boceto interactivo de punto de venta" loading="lazy"></iframe>
+      <p><a class="link" href="poss.html">Abrir POSS en pantalla completa</a></p>
+    </div>
+  </section>
 
   <section class="bloque vitrina" id="casos">
     <div class="wrap">
