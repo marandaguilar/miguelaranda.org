@@ -3,13 +3,14 @@
 Sitio personal. HTML estatico, sin build.
 Se publica solo en Cloudflare Pages con cada push a `main`.
 
-## Ejemplo de punto de venta
+## Ejemplos de servicios
 
-El servicio “Punto de venta y cobros” incluye una vista previa compacta. Al abrirla,
-el boceto interactivo aparece en la misma página; `poss.html` conserva una versión
-independiente. El ejemplo mantiene bloques grises y la navegación entre Vender,
-Productos, Pedidos, Tickets y Resumen.
+Cada grupo de servicios tiene una vista de referencia de tamaño fijo. Los botones y
+flechas cambian el ejemplo sin navegar a otra página. El punto de venta se puede
+recorrer en esa misma vista con Vender, Productos, Pedidos, Tickets y Resumen.
+`showcase.css` y `showcase.js` contienen las vistas y su interacción.
+Se comprueban con `node tests/showcase.smoke.cjs`.
 
 `referencias/poss-aprobado.html` conserva la fuente editable aprobada para futuras
-iteraciones. `poss.html` es su exportación autónoma con los recursos de presentación
-incluidos; no necesita el entorno de Codex. Las operaciones son demostraciones.
+iteraciones. `poss.html` conserva la exportación autónoma original. Las operaciones
+del ejemplo de la página son demostraciones.
