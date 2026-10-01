@@ -18,8 +18,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Cormorant+Garamond:wght@300;400&display=swap">
 
 <style>
-  .poss-demo { display:block; width:100%; height:780px; border:0; border-radius:22px; background:#fff; }
-  @media (max-width:720px) { .poss-demo { height:940px; } }
   :root {
     --paper:#f0efea;
     --ink:#16181c;
@@ -348,6 +346,48 @@
     font-size:1.1rem; letter-spacing:-.01em; line-height:1.4;
     margin:.2rem 0 .25rem;
   }
+  /* El ejemplo acompana al servicio sin convertirlo en otra seccion. */
+  .pos-ejemplo {
+    display:block; max-width:34rem; margin-top:1rem;
+    color:var(--ink); text-decoration:none;
+    border:1px solid var(--rule); border-radius:.75rem; overflow:hidden;
+    background:var(--paper);
+    transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .pos-ejemplo:hover, .pos-ejemplo:focus-visible {
+    border-color:var(--blue); transform:translateY(-2px);
+    box-shadow:0 .8rem 2rem rgba(0,0,0,.08);
+  }
+  .pos-ejemplo:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+  .pos-vista { display:grid; grid-template-columns:5.8rem minmax(0,1fr); height:11.5rem; background:#f6f8fc; color:#233047; font:600 .65rem/1.25 var(--text); }
+  .pos-menu { display:flex; flex-direction:column; gap:.35rem; padding:.8rem .45rem; background:#fff; border-right:1px solid #e8edf4; }
+  .pos-menu span { display:block; padding:.45rem .4rem; border-radius:.3rem; color:#718097; }
+  .pos-menu span:first-child { background:#eaf1ff; color:#1764f4; }
+  .pos-panel { min-width:0; padding:.8rem; }
+  .pos-vista-titulo { display:block; margin-bottom:.65rem; font-size:.85rem; }
+  .pos-venta { display:grid; grid-template-columns:minmax(0,1fr) 8.5rem; gap:.6rem; }
+  .pos-productos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.4rem; }
+  .pos-producto, .pos-pedido { min-width:0; background:#fff; border:1px solid #e8edf4; border-radius:.45rem; padding:.35rem; }
+  .pos-foto { display:block; height:3.3rem; border-radius:.25rem; background:linear-gradient(135deg,#e2e5ea,#d3d8df); }
+  .pos-renglon { display:block; height:.34rem; width:72%; margin:.4rem 0 0; border-radius:.2rem; background:#d7dbe2; }
+  .pos-renglon.corto { width:44%; background:#e3e6eb; }
+  .pos-pedido { display:flex; flex-direction:column; }
+  .pos-pedido strong { font-size:.7rem; }
+  .pos-pedido .pos-renglon { margin-top:.7rem; }
+  .pos-total { display:flex; justify-content:space-between; margin-top:auto; padding-top:.55rem; font-size:.7rem; }
+  .pos-cobrar { display:block; margin-top:.35rem; padding:.4rem; border-radius:.3rem; text-align:center; background:#1764f4; color:#fff; }
+  .pos-enlace { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.7rem .9rem; border-top:1px solid var(--rule); font-size:.88rem; font-weight:600; color:var(--blue); }
+  @media (max-width:34rem) {
+    .pos-vista { grid-template-columns:4.65rem minmax(0,1fr); height:10.5rem; font-size:.53rem; }
+    .pos-menu { padding:.65rem .25rem; gap:.2rem; }
+    .pos-menu span { padding:.35rem .2rem; }
+    .pos-panel { padding:.6rem; }
+    .pos-venta { grid-template-columns:minmax(0,1fr) 6rem; gap:.35rem; }
+    .pos-productos { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.3rem; }
+    .pos-producto:nth-child(3) { display:none; }
+    .pos-foto { height:3.4rem; }
+  }
+  @media (prefers-reduced-motion:reduce) { .pos-ejemplo { transition:none; } .pos-ejemplo:hover { transform:none; } }
   @media (max-width:47.99rem) {
     .row .servicios { margin-top:1rem; }
   }
@@ -644,7 +684,6 @@
 <nav class="indice" aria-label="Secciones de la pagina">
   <ul>
     <li><a href="#trabajo"><span class="raya" aria-hidden="true"></span>Servicios</a></li>
-    <li><a href="#poss"><span class="raya" aria-hidden="true"></span>POSS</a></li>
     <li><a href="#casos"><span class="raya" aria-hidden="true"></span>Casos</a></li>
     <li><a href="#proceso"><span class="raya" aria-hidden="true"></span>Proceso</a></li>
     <li><a href="#contacto"><span class="raya" aria-hidden="true"></span>Contacto</a></li>
@@ -700,11 +739,28 @@
                 <p>Qué entra, qué sale y qué se está acabando. La bodega de una distribuidora o los insumos de una cocina, sin contar a mano cada semana.</p>
               </div>
             </li>
-            <li>
+            <li id="poss">
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-cobro"/></svg></span>
               <div>
                 <h4>Punto de venta y cobros</h4>
                 <p>Cobrar rápido, cerrar la caja al final del día y saber cuánto vendiste sin sumar tickets.</p>
+                <a class="pos-ejemplo" href="poss.html" aria-label="Probar el ejemplo interactivo de punto de venta y cobros">
+                  <span class="pos-vista" aria-hidden="true">
+                    <span class="pos-menu"><span>Vender</span><span>Productos</span><span>Pedidos</span><span>Tickets</span></span>
+                    <span class="pos-panel">
+                      <span class="pos-vista-titulo">Vender</span>
+                      <span class="pos-venta">
+                        <span class="pos-productos">
+                          <span class="pos-producto"><span class="pos-foto"></span><span class="pos-renglon"></span><span class="pos-renglon corto"></span></span>
+                          <span class="pos-producto"><span class="pos-foto"></span><span class="pos-renglon"></span><span class="pos-renglon corto"></span></span>
+                          <span class="pos-producto"><span class="pos-foto"></span><span class="pos-renglon"></span><span class="pos-renglon corto"></span></span>
+                        </span>
+                        <span class="pos-pedido"><strong>Pedido</strong><span class="pos-renglon"></span><span class="pos-renglon corto"></span><span class="pos-total"><span>Total</span><strong>$120</strong></span><span class="pos-cobrar">Cobrar</span></span>
+                      </span>
+                    </span>
+                  </span>
+                  <span class="pos-enlace"><span>Probar el ejemplo interactivo</span><span aria-hidden="true">→</span></span>
+                </a>
               </div>
             </li>
             <li>
@@ -738,15 +794,6 @@
       </div>
     </section>
   </div>
-
-  <section class="bloque" id="poss" aria-labelledby="poss-titulo">
-    <div class="wrap">
-      <h2 id="poss-titulo">POSS</h2>
-      <p>Punto de venta: productos, pedidos y tickets en un solo lugar.</p>
-      <iframe class="poss-demo" src="poss.html" title="POSS: boceto interactivo de punto de venta" loading="lazy"></iframe>
-      <p><a class="link" href="poss.html">Abrir POSS en pantalla completa</a></p>
-    </div>
-  </section>
 
   <section class="bloque vitrina" id="casos">
     <div class="wrap">
