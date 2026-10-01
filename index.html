@@ -160,6 +160,7 @@
 
   /* Botón de bajar: ahora sí se ve y se siente botón */
   .portada-acciones p { margin:0 0 2.2rem; }
+  .portada-enlaces { display:flex; align-items:center; flex-wrap:wrap; gap:.9rem 1.5rem; }
   .bajar {
     display:inline-flex; align-items:center; gap:.7rem;
     margin-top:0;
@@ -174,6 +175,8 @@
   .bajar .ic { width:1.15rem; height:1.15rem; stroke-width:2; }
   .bajar:hover, .bajar:focus-visible { background:var(--ink); color:var(--paper); }
   .bajar:active { transform:translateY(1px); }
+  .ver-casos { color:var(--blue); font-family:var(--display); font-weight:600; font-size:1rem; text-underline-offset:.25em; }
+  .ver-casos:hover { text-decoration-thickness:2px; }
   html.anim .bajar .ic { animation:bota 2.4s cubic-bezier(.6,0,.3,1) infinite; }
   @keyframes bota {
     0%, 62%, 100% { transform:translateY(0); }
@@ -271,6 +274,18 @@
      Necesita aire a la derecha del contenido, asi que solo aparece
      cuando la ventana da para el, no encima del texto. */
   .indice { display:none; }
+  @media (max-width:79.99rem) {
+    .indice {
+      display:block; position:fixed; z-index:20; inset:0 0 auto;
+      background:var(--paper); border-bottom:1px solid var(--rule);
+      transition:transform .28s ease, visibility .28s ease;
+    }
+    html.en-portada .indice { transform:translateY(-105%); visibility:hidden; }
+    .indice ul { display:flex; justify-content:center; gap:clamp(.7rem,3vw,2.2rem); list-style:none; margin:0; padding:.55rem var(--gutter); }
+    .indice a { display:block; padding:.35rem 0; color:var(--ink-soft); text-decoration:none; font-size:.79rem; white-space:nowrap; }
+    .indice a[aria-current], .indice a:hover, .indice a:focus-visible { color:var(--blue); }
+    .indice .raya { display:none; }
+  }
   @media (min-width:80rem) {
     .indice {
       display:block; position:fixed; z-index:20;
@@ -303,16 +318,17 @@
   }
 
   /* ————— Secciones ————— */
-  section.bloque { padding:clamp(4.5rem,10vw,8rem) 0 0; scroll-margin-top:1.5rem; }
+  section.bloque { padding:clamp(3.5rem,7vw,6rem) 0 0; scroll-margin-top:4rem; }
+  .seccion-kicker { display:block; margin:0 0 .75rem; color:var(--blue); font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; }
   h2 {
     font-size:clamp(1.9rem,4.4vw,2.9rem);
     max-width:16ch;
-    margin-bottom:2.5rem;
+    margin-bottom:1.8rem;
   }
 
   .row {
     display:grid; gap:.4rem 3rem;
-    padding:1.8rem 0;
+    padding:1.5rem 0;
     position:relative;
   }
   .row::before {
@@ -331,9 +347,10 @@
   }
 
   /* Servicios: cada uno con su icono, para que se lean de un vistazo */
-  .intro { max-width:var(--measure); margin:-1rem 0 2.5rem; font-size:1.15rem; }
-  .servicios { list-style:none; margin:0; padding:0; display:grid; gap:1.6rem; }
+  .intro { max-width:var(--measure); margin:-.5rem 0 2rem; font-size:1.1rem; }
+  .servicios { list-style:none; margin:0; padding:0; display:grid; gap:1.15rem; }
   .servicios li { display:grid; grid-template-columns:auto 1fr; gap:0 1rem; align-items:start; }
+  .servicios li > div { min-width:0; }
   .chip {
     display:grid; place-items:center;
     width:2.5rem; height:2.5rem; border-radius:.55rem;
@@ -341,25 +358,35 @@
     background:color-mix(in srgb, var(--blue) 5%, transparent);
   }
   .chip .ic { width:1.3rem; height:1.3rem; }
+  .servicios li:hover .chip { border-color:var(--blue); transform:translateY(-2px); }
+  .chip { transition:border-color .2s ease, transform .2s ease; }
   .servicios h4 {
     font-family:var(--text); font-weight:600;
     font-size:1.1rem; letter-spacing:-.01em; line-height:1.4;
     margin:.2rem 0 .25rem;
   }
-  /* El ejemplo acompana al servicio sin convertirlo en otra seccion. */
-  .pos-ejemplo {
-    display:block; max-width:34rem; margin-top:1rem;
-    color:var(--ink); text-decoration:none;
-    border:1px solid var(--rule); border-radius:.75rem; overflow:hidden;
-    background:var(--paper);
+  .mini-muestra { display:block; width:min(100%,26rem); margin-top:.7rem; padding:.7rem; border:1px solid var(--rule); border-radius:.6rem; background:#f6f8fc; color:#233047; }
+  .mini-titulo { display:block; margin-bottom:.5rem; font-size:.68rem; font-weight:600; }
+  .mini-tarjetas { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.45rem; }
+  .mini-tarjetas > span { display:block; padding:.35rem; border:1px solid #e8edf4; border-radius:.35rem; background:#fff; }
+  .mini-foto { display:block; height:2.6rem; border-radius:.25rem; background:linear-gradient(135deg,#e2e5ea,#d3d8df); }
+  .mini-linea { display:block; width:65%; height:.3rem; margin-top:.35rem; border-radius:.2rem; background:#d7dbe2; }
+  .mini-linea.corta { width:38%; }
+  .mini-tabla { display:grid; gap:.3rem; }
+  .mini-tabla > span { display:flex; justify-content:space-between; align-items:center; padding:.25rem .4rem; border-radius:.25rem; background:#fff; }
+  .mini-tabla .mini-linea { width:45%; margin:0; }
+  .mini-cantidad { font-size:.6rem; color:#1764f4; }
+  /* Vista breve y demo desplegable, ambos dentro del servicio. */
+  .pos-ejemplo { max-width:46rem; margin-top:.85rem; }
+  .pos-abrir {
+    display:block; width:min(100%,32rem); padding:0; border:1px solid var(--rule); border-radius:.75rem;
+    background:var(--paper); color:var(--ink); text-align:left; font:inherit; cursor:pointer; overflow:hidden;
     transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
   }
-  .pos-ejemplo:hover, .pos-ejemplo:focus-visible {
-    border-color:var(--blue); transform:translateY(-2px);
-    box-shadow:0 .8rem 2rem rgba(0,0,0,.08);
-  }
-  .pos-ejemplo:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
-  .pos-vista { display:grid; grid-template-columns:5.8rem minmax(0,1fr); height:11.5rem; background:#f6f8fc; color:#233047; font:600 .65rem/1.25 var(--text); }
+  .pos-abrir:hover, .pos-abrir:focus-visible { border-color:var(--blue); transform:translateY(-2px); box-shadow:0 .8rem 2rem rgba(0,0,0,.08); }
+  .pos-abrir:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+  .pos-vista { display:grid; grid-template-columns:5.8rem minmax(0,1fr); height:9.5rem; max-height:9.5rem; overflow:hidden; background:#f6f8fc; color:#233047; font:600 .65rem/1.25 var(--text); transition:max-height .35s ease, opacity .25s ease; }
+  .pos-abrir[aria-expanded="true"] .pos-vista { max-height:0; opacity:0; }
   .pos-menu { display:flex; flex-direction:column; gap:.35rem; padding:.8rem .45rem; background:#fff; border-right:1px solid #e8edf4; }
   .pos-menu span { display:block; padding:.45rem .4rem; border-radius:.3rem; color:#718097; }
   .pos-menu span:first-child { background:#eaf1ff; color:#1764f4; }
@@ -368,7 +395,7 @@
   .pos-venta { display:grid; grid-template-columns:minmax(0,1fr) 8.5rem; gap:.6rem; }
   .pos-productos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.4rem; }
   .pos-producto, .pos-pedido { min-width:0; background:#fff; border:1px solid #e8edf4; border-radius:.45rem; padding:.35rem; }
-  .pos-foto { display:block; height:3.3rem; border-radius:.25rem; background:linear-gradient(135deg,#e2e5ea,#d3d8df); }
+  .pos-foto { display:block; height:2.6rem; border-radius:.25rem; background:linear-gradient(135deg,#e2e5ea,#d3d8df); }
   .pos-renglon { display:block; height:.34rem; width:72%; margin:.4rem 0 0; border-radius:.2rem; background:#d7dbe2; }
   .pos-renglon.corto { width:44%; background:#e3e6eb; }
   .pos-pedido { display:flex; flex-direction:column; }
@@ -376,24 +403,34 @@
   .pos-pedido .pos-renglon { margin-top:.7rem; }
   .pos-total { display:flex; justify-content:space-between; margin-top:auto; padding-top:.55rem; font-size:.7rem; }
   .pos-cobrar { display:block; margin-top:.35rem; padding:.4rem; border-radius:.3rem; text-align:center; background:#1764f4; color:#fff; }
-  .pos-enlace { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.7rem .9rem; border-top:1px solid var(--rule); font-size:.88rem; font-weight:600; color:var(--blue); }
+  .pos-enlace { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.6rem .9rem; border-top:1px solid var(--rule); font-size:.88rem; font-weight:600; color:var(--blue); }
+  .pos-enlace .flecha { transition:transform .25s ease; }
+  .pos-abrir[aria-expanded="true"] .flecha { transform:rotate(90deg); }
+  .pos-despliegue { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows .45s cubic-bezier(.2,.75,.25,1), opacity .3s ease; }
+  .pos-despliegue.is-open { grid-template-rows:1fr; opacity:1; }
+  .pos-despliegue-interior { min-height:0; overflow:hidden; }
+  .pos-demo-marco { margin-top:1rem; border:1px solid var(--rule); border-radius:.75rem; overflow:hidden; background:#fff; }
+  .pos-demo-marco iframe { display:block; width:100%; height:44rem; border:0; background:#fff; }
   @media (max-width:34rem) {
-    .pos-vista { grid-template-columns:4.65rem minmax(0,1fr); height:10.5rem; font-size:.53rem; }
+    .pos-vista { grid-template-columns:4.65rem minmax(0,1fr); height:9.5rem; font-size:.53rem; }
     .pos-menu { padding:.65rem .25rem; gap:.2rem; }
     .pos-menu span { padding:.35rem .2rem; }
     .pos-panel { padding:.6rem; }
     .pos-venta { grid-template-columns:minmax(0,1fr) 6rem; gap:.35rem; }
     .pos-productos { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.3rem; }
     .pos-producto:nth-child(3) { display:none; }
-    .pos-foto { height:3.4rem; }
+    .pos-foto { height:2.6rem; }
   }
-  @media (prefers-reduced-motion:reduce) { .pos-ejemplo { transition:none; } .pos-ejemplo:hover { transform:none; } }
+  @media (max-width:40rem) { .pos-demo-marco iframe { height:54rem; } }
   @media (max-width:47.99rem) {
     .row .servicios { margin-top:1rem; }
+    .servicio-pos .pos-ejemplo { width:calc(100% + 3.5rem); margin-left:-3.5rem; }
+    .servicio-catalogo .mini-muestra, .servicio-inventario .mini-muestra { width:calc(100% + 3.5rem); margin-left:-3.5rem; }
   }
 
   /* Casos */
-  .caso { padding:2.5rem 0 3rem; position:relative; }
+  .caso { padding:2.2rem 0; position:relative; display:grid; gap:1.5rem 3rem; align-items:center; }
+  @media (min-width:48rem) { .caso { grid-template-columns:minmax(0,1fr) minmax(15rem,19rem); } }
   .caso::before {
     content:''; position:absolute; top:0; left:0; right:0; height:1px;
     background:var(--rule);
@@ -407,7 +444,7 @@
     white-space:nowrap;
   }
   .caso .que { font-size:1.15rem; color:var(--ink); max-width:var(--measure); margin:0 0 1rem; }
-  .caso p { max-width:var(--measure); color:var(--ink-soft); margin:0 0 1rem; }
+  .caso p { max-width:var(--measure); color:var(--ink-soft); margin:0 0 .8rem; }
   .caso p:last-child { margin-bottom:0; }
   .caso a.link { color:var(--blue); text-decoration-thickness:1px; text-underline-offset:.2em; }
   .piezas {
@@ -421,14 +458,21 @@
     border:1px solid var(--rule); border-radius:.4rem; padding:.3rem .7rem;
   }
   .piezas .ic { width:.95rem; height:.95rem; color:var(--blue); }
+  .caso-muestra { padding:1.2rem; border-radius:.7rem; background:var(--paper); color:var(--ink); transition:transform .25s ease, box-shadow .25s ease; }
+  .caso:hover .caso-muestra { transform:translateY(-3px); box-shadow:0 1rem 2rem rgba(0,0,0,.14); }
+  .caso-muestra small { display:block; margin-bottom:.9rem; color:var(--ink-soft); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+  .caso-flujo { list-style:none; display:grid; gap:.45rem; margin:0; padding:0; }
+  .caso-flujo li { display:flex; align-items:center; gap:.75rem; padding:.55rem .7rem; border:1px solid var(--rule); border-radius:.4rem; background:color-mix(in srgb,var(--paper) 70%,white); font-size:.78rem; font-weight:600; }
+  .caso-flujo li span { display:grid; place-items:center; width:1.35rem; height:1.35rem; flex:none; border-radius:.25rem; background:color-mix(in srgb,var(--blue) 12%,transparent); color:var(--blue); font-size:.67rem; }
 
   /* ————— Vitrina: los casos sobre banda oscura, para que no se confundan
      con la lista de servicios. Mismo carbon de la tarjeta, sin color nuevo. ————— */
   .vitrina {
     background:var(--vitrina); color:var(--vitrina-ink);
-    margin-top:clamp(4.5rem,10vw,8rem);
-    padding-bottom:clamp(3.5rem,8vw,6rem);
+    margin-top:clamp(3.5rem,7vw,6rem);
+    padding-bottom:clamp(2.5rem,6vw,4rem);
   }
+  .vitrina .seccion-kicker { color:var(--vitrina-azul); }
   .vitrina .caso::before { background:var(--vitrina-rule); }
   .vitrina .caso .que { color:var(--vitrina-ink); }
   .vitrina .caso p { color:var(--vitrina-soft); }
@@ -436,20 +480,25 @@
   .vitrina .estado,
   .vitrina .piezas li { color:var(--vitrina-soft); border-color:var(--vitrina-rule); }
   .vitrina .piezas .ic { color:var(--vitrina-azul); }
+  .casos-cta { margin:1.5rem 0 0; font-family:var(--display); font-weight:600; font-size:1.15rem; }
+  .casos-cta a { color:var(--vitrina-azul); text-underline-offset:.25em; }
+  .casos-cta a:hover { text-decoration-thickness:2px; }
   .vitrina :focus-visible { outline-color:var(--vitrina-azul); }
 
   /* ————— Proceso ————— */
   .proceso {
     background:var(--manila); color:var(--manila-ink);
-    margin-top:clamp(4.5rem,10vw,8rem);
-    padding-bottom:clamp(3.5rem,8vw,6rem);
+    margin-top:clamp(3.5rem,7vw,6rem);
+    padding-bottom:clamp(2.5rem,6vw,4rem);
   }
+  .proceso .seccion-kicker { color:var(--manila-ink); opacity:.65; }
   .proceso h2 { margin-bottom:2rem; }
   .proceso .row::before, .proceso .rows::after { background:var(--manila-rule); }
   .proceso .row { grid-template-columns:2.4rem 1fr; gap:0 1.2rem; }
   .proceso .row p { color:inherit; }
   .proceso .row h3 { margin-bottom:.3rem; }
   .num { font-family:var(--display); font-weight:800; font-size:1.5rem; line-height:1.35; opacity:.45; }
+  .proceso .row:hover .num { opacity:1; transition:opacity .2s ease; }
   @media (min-width:48rem) {
     .proceso .wrap { display:grid; grid-template-columns:16rem 1fr; gap:0 3rem; align-items:start; }
     .proceso h2 { font-size:2.2rem; margin:0; padding-top:1.5rem; }
@@ -463,7 +512,9 @@
   .socio {
     border:1px solid var(--rule); border-radius:.7rem;
     padding:1.6rem 1.5rem 1.5rem;
+    transition:border-color .2s ease, transform .2s ease;
   }
+  .socio:hover { border-color:var(--blue); transform:translateY(-2px); }
   .socio-nombre {
     font-family:var(--display); font-weight:800; letter-spacing:-.03em;
     font-size:1.45rem; line-height:1.1; margin:0;
@@ -545,6 +596,7 @@
   @media (prefers-reduced-motion: reduce) {
     * { transition:none !important; animation:none !important; }
     html { scroll-behavior:auto; }
+    .pos-abrir:hover, .caso:hover .caso-muestra, .socio:hover { transform:none; }
   }
 </style>
 </head>
@@ -673,10 +725,13 @@
 
     <div class="portada-acciones">
       <p><a class="mail" href="mailto:miguel@miguelaranda.org?subject=Quiero%20platicar%20de%20un%20proyecto">miguel@miguelaranda.org</a></p>
-      <a class="bajar" href="#trabajo">
-        Ver lo que hacemos
-        <svg class="ic" aria-hidden="true"><use href="#i-flecha"/></svg>
-      </a>
+      <div class="portada-enlaces">
+        <a class="bajar" href="#trabajo">
+          Ver lo que hacemos
+          <svg class="ic" aria-hidden="true"><use href="#i-flecha"/></svg>
+        </a>
+        <a class="ver-casos" href="#casos">Ver proyectos reales →</a>
+      </div>
     </div>
   </div>
 </header>
@@ -693,38 +748,43 @@
 <main>
   <div class="wrap">
     <section class="bloque rev" id="trabajo">
+      <span class="seccion-kicker apar">01 / Lo que resolvemos</span>
       <h2>Todo tu negocio en un solo sistema</h2>
-      <p class="intro apar">Vender, cobrar, controlar el inventario, agendar clientes. Cada parte de tu operación deja de estar suelta y tu equipo la maneja desde la computadora o el celular.</p>
+      <p class="intro apar">Vende, cobra y lleva el control sin saltar entre archivos. Tu equipo puede trabajar desde la computadora o el celular.</p>
       <div class="rows">
         <div class="row apar" style="--d:.05s">
           <h3>Para vender</h3>
           <ul class="servicios">
-            <li>
+            <li class="servicio-catalogo">
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-catalogo"/></svg></span>
               <div>
                 <h4>Catálogos digitales</h4>
-                <p>Tus productos con foto y precio en un solo enlace que mandas por WhatsApp. Para tiendas y distribuidoras que hoy mandan fotos sueltas y listas de precios en PDF.</p>
+                <p>Productos, fotos y precios en un enlace listo para compartir por WhatsApp.</p>
+                <div class="mini-muestra" role="img" aria-label="Vista esquemática de un catálogo con tres productos">
+                  <span class="mini-titulo">Catálogo</span>
+                  <span class="mini-tarjetas"><span><span class="mini-foto"></span><span class="mini-linea"></span><span class="mini-linea corta"></span></span><span><span class="mini-foto"></span><span class="mini-linea"></span><span class="mini-linea corta"></span></span><span><span class="mini-foto"></span><span class="mini-linea"></span><span class="mini-linea corta"></span></span></span>
+                </div>
               </div>
             </li>
             <li>
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-qr"/></svg></span>
               <div>
                 <h4>Códigos QR</h4>
-                <p>El menú en la mesa del restaurante o la cafetería, la ficha de un producto en el mostrador. Tu cliente lo abre con la cámara del celular, sin descargar nada.</p>
+                <p>Tu menú o ficha de producto se abre con la cámara, sin descargar nada.</p>
               </div>
             </li>
             <li>
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-tienda"/></svg></span>
               <div>
                 <h4>Páginas web y tiendas en línea</h4>
-                <p>Que te encuentren en internet y que los pedidos te lleguen completos, sin perder la venta a media conversación.</p>
+                <p>Un lugar claro para conocer lo que vendes y enviarte pedidos completos.</p>
               </div>
             </li>
             <li>
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-mapa"/></svg></span>
               <div>
                 <h4>Tu negocio en Google Maps</h4>
-                <p>Que te encuentre quien está cerca y busca lo que vendes. Armamos tu perfil y lo mantenemos al día: horarios, fotos, teléfono y reseñas.</p>
+                <p>Horarios, fotos, contacto y reseñas al día para quien te busca cerca.</p>
               </div>
             </li>
           </ul>
@@ -732,19 +792,24 @@
         <div class="row apar" style="--d:.12s">
           <h3>Para llevar el control</h3>
           <ul class="servicios">
-            <li>
+            <li class="servicio-inventario">
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-inventario"/></svg></span>
               <div>
                 <h4>Inventario</h4>
-                <p>Qué entra, qué sale y qué se está acabando. La bodega de una distribuidora o los insumos de una cocina, sin contar a mano cada semana.</p>
+                <p>Ve qué entra, qué sale y qué se está acabando, sin contar a mano.</p>
+                <div class="mini-muestra" role="img" aria-label="Vista esquemática de inventario con existencias de tres productos">
+                  <span class="mini-titulo">Inventario</span>
+                  <span class="mini-tabla"><span><span class="mini-linea"></span><span class="mini-cantidad">24 disponibles</span></span><span><span class="mini-linea"></span><span class="mini-cantidad">12 disponibles</span></span><span><span class="mini-linea"></span><span class="mini-cantidad">5 disponibles</span></span></span>
+                </div>
               </div>
             </li>
-            <li id="poss">
+            <li id="poss" class="servicio-pos">
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-cobro"/></svg></span>
               <div>
                 <h4>Punto de venta y cobros</h4>
-                <p>Cobrar rápido, cerrar la caja al final del día y saber cuánto vendiste sin sumar tickets.</p>
-                <a class="pos-ejemplo" href="poss.html" aria-label="Probar el ejemplo interactivo de punto de venta y cobros">
+                <p>Vende, cobra y consulta pedidos y tickets desde un mismo lugar.</p>
+                <div class="pos-ejemplo">
+                <button class="pos-abrir" type="button" aria-expanded="false" aria-controls="pos-despliegue" aria-label="Abrir ejemplo interactivo de punto de venta y cobros">
                   <span class="pos-vista" aria-hidden="true">
                     <span class="pos-menu"><span>Vender</span><span>Productos</span><span>Pedidos</span><span>Tickets</span></span>
                     <span class="pos-panel">
@@ -759,15 +824,21 @@
                       </span>
                     </span>
                   </span>
-                  <span class="pos-enlace"><span>Probar el ejemplo interactivo</span><span aria-hidden="true">→</span></span>
-                </a>
+                  <span class="pos-enlace"><span class="pos-accion">Explorar el punto de venta aquí</span><span class="flecha" aria-hidden="true">→</span></span>
+                </button>
+                <div class="pos-despliegue" id="pos-despliegue" aria-hidden="true" inert>
+                  <div class="pos-despliegue-interior">
+                    <div class="pos-demo-marco"><iframe title="Ejemplo interactivo de punto de venta: vender, productos, pedidos y tickets" data-src="poss.html" loading="lazy"></iframe></div>
+                  </div>
+                </div>
+                </div>
               </div>
             </li>
             <li>
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-agenda"/></svg></span>
               <div>
                 <h4>Citas y reservas</h4>
-                <p>Tus clientes apartan su hora en línea y tú ves la agenda del día desde el celular. Para talleres y negocios de servicios.</p>
+                <p>Tus clientes reservan en línea y tú ves la agenda desde el celular.</p>
               </div>
             </li>
           </ul>
@@ -779,14 +850,14 @@
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-sistema"/></svg></span>
               <div>
                 <h4>Sistemas web</h4>
-                <p>Cuando no existe lo que necesitas: órdenes de trabajo, clientes, expedientes, reportes. Todo en un solo lugar, en vez de cinco archivos y nadie sabe cuál es el bueno.</p>
+                <p>Órdenes, clientes, expedientes y reportes en un sistema hecho para tu forma de trabajar.</p>
               </div>
             </li>
             <li>
               <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-app"/></svg></span>
               <div>
                 <h4>Apps para celular</h4>
-                <p>Para iPhone y Android, publicadas en las tiendas. Para tu equipo, para tus clientes o para los dos.</p>
+                <p>Apps para iPhone y Android, para tu equipo, tus clientes o ambos.</p>
               </div>
             </li>
           </ul>
@@ -797,90 +868,96 @@
 
   <section class="bloque vitrina" id="casos">
     <div class="wrap">
-      <div class="rev"><h2>Lo que hemos construido</h2></div>
+      <div class="rev"><span class="seccion-kicker apar">02 / Trabajo real</span><h2>Lo que hemos construido</h2></div>
 
       <article class="caso rev">
+        <div class="caso-texto">
         <div class="caso-head apar">
           <h3>NoPain</h3>
           <span class="estado">En desarrollo</span>
         </div>
-        <p class="que apar" style="--d:.06s">Una plataforma completa para clínicas de fisioterapia que hoy llevan sus expedientes en papel.</p>
-        <p class="apar" style="--d:.12s">Tres piezas conectadas al mismo expediente: el fisioterapeuta atiende y receta ejercicios, el paciente hace su rutina en casa y reporta cómo le fue, y la clínica ve todo desde el panel de administración.</p>
-        <p class="apar" style="--d:.18s">Miguel es cofundador y la construyó de principio a fin. <a class="link" href="https://www.nopain.mx">nopain.mx</a></p>
+        <p class="que apar" style="--d:.06s">El expediente de fisioterapia, conectado entre clínica, especialista y paciente.</p>
+        <p class="apar" style="--d:.12s">El fisioterapeuta atiende y asigna ejercicios; el paciente reporta avances; la clínica ve el seguimiento en un panel. Miguel es cofundador y desarrolló la plataforma.</p>
+        <p class="apar" style="--d:.18s"><a class="link" href="https://www.nopain.mx">Conocer NoPain ↗</a></p>
         <ul class="piezas apar" style="--d:.24s">
           <li><svg class="ic" aria-hidden="true"><use href="#i-app"/></svg>App del fisioterapeuta</li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-app"/></svg>App del paciente</li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-sistema"/></svg>Panel de administración</li>
         </ul>
+        </div>
+        <div class="caso-muestra apar" style="--d:.18s" aria-label="Esquema de NoPain: especialista, paciente y clínica conectados">
+          <small>Así se conecta</small>
+          <ol class="caso-flujo"><li><span>01</span>Especialista</li><li><span>02</span>Paciente</li><li><span>03</span>Clínica</li></ol>
+        </div>
       </article>
 
       <article class="caso rev">
+        <div class="caso-texto">
         <div class="caso-head apar">
           <h3>HoraMed</h3>
           <span class="estado">En pruebas</span>
         </div>
-        <p class="que apar" style="--d:.06s">Una app para Android que ayuda a no olvidar ninguna medicina.</p>
-        <p class="apar" style="--d:.12s">Escaneas la receta con la cámara y la app arma los horarios. A la hora de cada toma avisa, y sigue avisando hasta que confirmas que ya la tomaste. También lleva la cuenta de cuántos días te alcanza cada medicamento.</p>
+        <p class="que apar" style="--d:.06s">Una app para recordar cada toma de medicina.</p>
+        <p class="apar" style="--d:.12s">Escaneas la receta, la app organiza horarios y te avisa hasta que confirmas la toma. También calcula para cuántos días alcanza cada medicamento.</p>
         <p class="apar" style="--d:.18s">Maximiliano es el desarrollador y productor de HoraMed. Miguel supervisa.</p>
         <ul class="piezas apar" style="--d:.24s">
           <li><svg class="ic" aria-hidden="true"><use href="#i-qr"/></svg>Escaneo de recetas</li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-agenda"/></svg>Recordatorios que insisten</li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-inventario"/></svg>Control de existencias</li>
         </ul>
+        </div>
+        <div class="caso-muestra apar" style="--d:.18s" aria-label="Esquema de HoraMed: receta, horarios y recordatorios">
+          <small>Así funciona</small>
+          <ol class="caso-flujo"><li><span>01</span>Escanea la receta</li><li><span>02</span>Organiza las tomas</li><li><span>03</span>Confirma cada aviso</li></ol>
+        </div>
       </article>
 
       <article class="caso rev">
+        <div class="caso-texto">
         <div class="caso-head apar">
           <h3>Gamba</h3>
           <span class="estado">Tienda en línea</span>
         </div>
-        <p class="que apar" style="--d:.06s">Tienda de artículos de limpieza, con catálogo en línea y pedidos por WhatsApp.</p>
-        <p class="apar" style="--d:.12s">Rediseñamos la tienda completa alrededor de una sola pregunta: qué hace falta para que alguien que entra desde el celular termine mandando su pedido.</p>
+        <p class="que apar" style="--d:.06s">Una tienda de limpieza pensada para convertir visitas en pedidos.</p>
+        <p class="apar" style="--d:.12s">Rediseñamos el catálogo para que alguien encuentre productos desde el celular y envíe su pedido por WhatsApp sin perderse en el camino.</p>
         <ul class="piezas apar" style="--d:.18s">
           <li><svg class="ic" aria-hidden="true"><use href="#i-catalogo"/></svg>Catálogo en línea</li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Pedidos por WhatsApp</li>
         </ul>
+        </div>
+        <div class="caso-muestra apar" style="--d:.18s" aria-label="Esquema de Gamba: catálogo, selección y pedido por WhatsApp">
+          <small>Camino del cliente</small>
+          <ol class="caso-flujo"><li><span>01</span>Explora el catálogo</li><li><span>02</span>Elige productos</li><li><span>03</span>Envía el pedido</li></ol>
+        </div>
       </article>
+      <p class="casos-cta"><a class="link" href="#contacto">¿Quieres algo así para tu negocio? Hablemos →</a></p>
     </div>
   </section>
 
   <section class="bloque proceso rev" id="proceso">
     <div class="wrap">
+      <span class="seccion-kicker apar">03 / Del primer mensaje a la entrega</span>
       <h2>Cómo trabajamos</h2>
       <div class="rows">
         <div class="row apar" style="--d:.05s">
           <span class="num" aria-hidden="true">1</span>
           <div>
-            <h3>Nos cuentas cómo trabajas hoy</h3>
-            <p>La primera plática no cuesta. Sin tecnicismos: qué haces en el día, dónde se te va el tiempo y qué se te pierde. De ahí sale lo que hay que construir.</p>
+            <h3>Entendemos tu negocio</h3>
+            <p>La primera plática no cuesta. Vemos qué haces hoy, dónde se va el tiempo y qué necesitas resolver.</p>
           </div>
         </div>
         <div class="row apar" style="--d:.1s">
           <span class="num" aria-hidden="true">2</span>
           <div>
-            <h3>Te damos un precio cerrado</h3>
-            <p>Antes de empezar sabes cuánto cuesta y qué incluye. Sin sorpresas a medio camino.</p>
+            <h3>Acordamos alcance y diseño</h3>
+            <p>Conoces el precio y ves las pantallas antes de programar. Ajustamos lo necesario contigo.</p>
           </div>
         </div>
         <div class="row apar" style="--d:.15s">
           <span class="num" aria-hidden="true">3</span>
           <div>
-            <h3>Ves las pantallas antes de programar</h3>
-            <p>Te enseñamos cómo se va a ver y nos dices qué cambiar. Nada se programa hasta que estés de acuerdo, que es cuando los cambios todavía salen baratos.</p>
-          </div>
-        </div>
-        <div class="row apar" style="--d:.2s">
-          <span class="num" aria-hidden="true">4</span>
-          <div>
-            <h3>Recibes avances cada semana</h3>
-            <p>Lo pruebas tú mismo desde tu celular mientras se construye. En todo momento sabes en qué vamos y qué sigue.</p>
-          </div>
-        </div>
-        <div class="row apar" style="--d:.25s">
-          <span class="num" aria-hidden="true">5</span>
-          <div>
-            <h3>Seguimos contigo después de entregar</h3>
-            <p>Cuando el sistema ya está en uso, te damos soporte y mantenimiento. No desaparecemos el día de la entrega.</p>
+            <h3>Construimos y te acompañamos</h3>
+            <p>Pruebas avances cada semana desde tu celular. Después de entregar, seguimos con soporte y mantenimiento.</p>
           </div>
         </div>
       </div>
@@ -889,8 +966,9 @@
 
   <div class="wrap">
     <section class="bloque cierre rev" id="contacto">
+      <span class="seccion-kicker apar">04 / Hablemos</span>
       <h2>Cuéntanos qué necesitas</h2>
-      <p class="apar" style="--d:.06s">No hace falta que sepas de tecnología ni que traigas el proyecto definido. Con que nos expliques qué te está costando trabajo, es suficiente para empezar. Escríbele a cualquiera de los dos.</p>
+      <p class="apar" style="--d:.06s">Cuéntanos qué te está costando trabajo. No necesitas tener el proyecto definido para empezar.</p>
 
       <div class="socios">
         <div class="socio apar" style="--d:.12s">
@@ -1020,6 +1098,28 @@
       new IntersectionObserver(function (entradas) {
         raiz.classList.toggle('en-portada', entradas[0].isIntersecting);
       }, { threshold: 0 }).observe(portada);
+    }
+
+    /* El demo vive en la misma pagina y se carga solo al abrirse. */
+    var posAbrir = document.querySelector('.pos-abrir');
+    var posDespliegue = document.getElementById('pos-despliegue');
+    if (posAbrir && posDespliegue) {
+      var posMarco = posDespliegue.querySelector('iframe');
+      function cambiarPos(abierto) {
+        if (abierto && !posMarco.hasAttribute('src')) posMarco.src = posMarco.dataset.src;
+        posAbrir.setAttribute('aria-expanded', String(abierto));
+        posAbrir.setAttribute('aria-label', (abierto ? 'Cerrar' : 'Abrir') + ' ejemplo interactivo de punto de venta y cobros');
+        posAbrir.querySelector('.pos-accion').textContent = abierto ? 'Cerrar ejemplo' : 'Explorar el punto de venta aquí';
+        posDespliegue.classList.toggle('is-open', abierto);
+        posDespliegue.setAttribute('aria-hidden', String(!abierto));
+        posDespliegue.inert = !abierto;
+      }
+      posAbrir.addEventListener('click', function () {
+        cambiarPos(posAbrir.getAttribute('aria-expanded') !== 'true');
+      });
+      posDespliegue.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { cambiarPos(false); posAbrir.focus(); }
+      });
     }
 
     /* ————— Aparición al bajar ————— */
